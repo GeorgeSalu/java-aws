@@ -37,7 +37,7 @@ public class UsuarioController {
 	
 	@PatchMapping("/{id}")
 	public ResponseEntity<Usuario> getById(@PathVariable Long id,@RequestBody Usuario usuario) {
-		Usuario user = usuarioService.editaSenha(id, usuario.getPassword());
+		Usuario user = usuarioService.editarSenha(id, usuario.getPassword());
 		return ResponseEntity.ok(user);
 	}
 
