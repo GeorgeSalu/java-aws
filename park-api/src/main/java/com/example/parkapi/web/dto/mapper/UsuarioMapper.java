@@ -15,7 +15,7 @@ public class UsuarioMapper {
 	
 	public static UsuarioResponseDto toDto(Usuario usuario) {
 		String role = usuario.getRole().name().substring("ROLE_".length());
-		PropertyMap<Usuario, UsuarioResponseDto> porps = new PropertyMap<Usuario, UsuarioResponseDto>() {
+		PropertyMap<Usuario, UsuarioResponseDto> props = new PropertyMap<Usuario, UsuarioResponseDto>() {
 
 			@Override
 			protected void configure() {
@@ -23,7 +23,7 @@ public class UsuarioMapper {
 			}
 		};
 		ModelMapper mapper = new ModelMapper();
-		mapper.addMappings(porps);
+		mapper.addMappings(props);
 		return mapper.map(usuario, UsuarioResponseDto.class);
 	}
 }
