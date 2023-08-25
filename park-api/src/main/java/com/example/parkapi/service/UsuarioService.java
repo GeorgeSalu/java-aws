@@ -26,6 +26,13 @@ public class UsuarioService {
 				() -> new RuntimeException("Usuario não encontrado")
 		);
 	}
+
+	@Transactional
+	public Usuario editaSenha(Long id, String password) {
+		Usuario user = buscarPorId(id);
+		user.setPassword(password);
+		return user;
+	}
 	
 	
 }
