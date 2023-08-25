@@ -14,7 +14,7 @@ import com.example.parkapi.service.UsuarioService;
 @RequestMapping("api/v1/usuarios")
 public class UsuarioController {
 	
-	private UsuarioService usuarioService;
+	private final UsuarioService usuarioService;
 
 	public UsuarioController(UsuarioService usuarioService) {
 		this.usuarioService = usuarioService;
