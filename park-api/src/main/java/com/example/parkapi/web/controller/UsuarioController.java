@@ -16,6 +16,7 @@ import com.example.parkapi.entity.Usuario;
 import com.example.parkapi.service.UsuarioService;
 import com.example.parkapi.web.dto.UsuarioCreateDto;
 import com.example.parkapi.web.dto.UsuarioResponseDto;
+import com.example.parkapi.web.dto.UsuarioSenhaDto;
 import com.example.parkapi.web.dto.mapper.UsuarioMapper;
 
 @RestController
@@ -41,9 +42,9 @@ public class UsuarioController {
 	}
 	
 	@PatchMapping("/{id}")
-	public ResponseEntity<Usuario> updatePassword(@PathVariable Long id,@RequestBody Usuario usuario) {
-		Usuario user = usuarioService.editarSenha(id, usuario.getPassword());
-		return ResponseEntity.ok(user);
+	public ResponseEntity<Void> updatePassword(@PathVariable Long id,@RequestBody UsuarioSenhaDto dto) {
+		Usuario user = usuarioService.editarSenha(id, dto.getSenhaAtual(), dto.getNovaSenha(), dto.getConfirmaSenha());
+		return ResponseEntity.noContent().build();
 	}
 	
 	@GetMapping
