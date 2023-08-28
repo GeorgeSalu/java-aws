@@ -50,7 +50,7 @@ public class UsuarioController {
 	@GetMapping
 	public ResponseEntity<List<UsuarioResponseDto>> getAll() {
 		List<Usuario> users = usuarioService.buscarTodos();
-		return ResponseEntity.ok(UsuarioMapper.toListsDto(users));
+		return ResponseEntity.ok(UsuarioMapper.toListDto(users));
 	}
 
 }
