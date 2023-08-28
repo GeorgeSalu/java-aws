@@ -18,7 +18,8 @@ public class ErrorMessage {
 	private String message;
 	private Map<String, String> errors;
 
-	public ErrorMessage() {}
+	public ErrorMessage() {
+	}
 
 	public ErrorMessage(HttpServletRequest request, HttpStatus status, String message) {
 		this.path = request.getRequestURI();
@@ -67,6 +68,12 @@ public class ErrorMessage {
 
 	public Map<String, String> getErrors() {
 		return errors;
+	}
+
+	@Override
+	public String toString() {
+		return "ErrorMessage [path=" + path + ", method=" + method + ", status=" + status + ", statusText=" + statusText
+				+ ", message=" + message + ", errors=" + errors + "]";
 	}
 
 }
