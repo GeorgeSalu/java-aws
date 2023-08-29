@@ -27,7 +27,7 @@ import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
 
-@Tag(name = "Usuarios", description = "Contem toas as operações relativas aos recursos para cadastro, edição e leitura de um usuario")
+@Tag(name = "Usuarios", description = "Contem todas as operações relativas aos recursos para cadastro, edição e leitura de um usuario")
 @RestController
 @RequestMapping("api/v1/usuarios")
 public class UsuarioController {
