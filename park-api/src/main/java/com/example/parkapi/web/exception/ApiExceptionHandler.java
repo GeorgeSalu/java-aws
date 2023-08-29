@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 
 import com.example.parkapi.exception.EntityNotFoundException;
+import com.example.parkapi.exception.PasswordInvalidException;
 import com.example.parkapi.exception.UsernameUniqueViolationException;
 
 import jakarta.servlet.http.HttpServletRequest;
@@ -20,6 +21,16 @@ public class ApiExceptionHandler {
 	
 	private static final Logger log = LoggerFactory.getLogger(ApiExceptionHandler.class);
 
+	@ExceptionHandler(PasswordInvalidException.class)
+	public ResponseEntity<ErrorMessage> passwordInvalidException(RuntimeException ex, 
+																		HttpServletRequest request) {
+		log.error("Api Error - "+ex);
+		return ResponseEntity
+					.status(HttpStatus.BAD_GATEWAY)
+					.contentType(MediaType.APPLICATION_JSON)
+					.body(new ErrorMessage(request, HttpStatus.BAD_GATEWAY, ex.getMessage()));
+	}
+	
 	@ExceptionHandler(EntityNotFoundException.class)
 	public ResponseEntity<ErrorMessage> entityNotFoundException(RuntimeException ex, 
 																		HttpServletRequest request) {
