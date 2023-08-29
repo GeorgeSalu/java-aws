@@ -21,6 +21,7 @@ import com.example.parkapi.web.dto.mapper.UsuarioMapper;
 import com.example.parkapi.web.exception.ErrorMessage;
 
 import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.media.ArraySchema;
 import io.swagger.v3.oas.annotations.media.Content;
 import io.swagger.v3.oas.annotations.media.Schema;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
@@ -90,6 +91,15 @@ public class UsuarioController {
 		return ResponseEntity.noContent().build();
 	}
 	
+	@Operation(
+			summary = "Listar todos os usuarios",
+			description = "listar todos os usuarios cadastrados",
+			responses = {
+					@ApiResponse(responseCode = "200", description = "lista com todos os usuarios cadastrados", 
+							content = @Content(mediaType = "application/json", 
+							array = @ArraySchema(schema = @Schema(implementation = UsuarioResponseDto.class))))
+			}
+	)
 	@GetMapping
 	public ResponseEntity<List<UsuarioResponseDto>> getAll() {
 		List<Usuario> users = usuarioService.buscarTodos();
