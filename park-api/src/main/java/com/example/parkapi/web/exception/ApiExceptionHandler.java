@@ -10,6 +10,8 @@ import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 
+import com.example.parkapi.exception.UsernameUniqueViolationException;
+
 import jakarta.servlet.http.HttpServletRequest;
 
 @RestControllerAdvice
@@ -17,6 +19,17 @@ public class ApiExceptionHandler {
 	
 	private static final Logger log = LoggerFactory.getLogger(ApiExceptionHandler.class);
 
+	@ExceptionHandler(UsernameUniqueViolationException.class)
+	public ResponseEntity<ErrorMessage> methodArgumentNotValidException(RuntimeException ex, 
+																		HttpServletRequest request) {
+		log.error("Api Error - "+ex);
+		return ResponseEntity
+					.status(HttpStatus.CONFLICT)
+					.contentType(MediaType.APPLICATION_JSON)
+					.body(new ErrorMessage(request, HttpStatus.UNPROCESSABLE_ENTITY, ex.getMessage()));
+	}
+	
+	
 	@ExceptionHandler(MethodArgumentNotValidException.class)
 	public ResponseEntity<ErrorMessage> methodArgumentNotValidException(MethodArgumentNotValidException ex, 
 																		HttpServletRequest request,

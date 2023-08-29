@@ -2,10 +2,12 @@ package com.example.parkapi.service;
 
 import java.util.List;
 
+import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.example.parkapi.entity.Usuario;
+import com.example.parkapi.exception.UsernameUniqueViolationException;
 import com.example.parkapi.repository.UsuarioRepository;
 
 @Service
@@ -19,7 +21,11 @@ public class UsuarioService {
 
 	@Transactional
 	public Usuario salvar(Usuario usuario) {
-		return usuarioRepository.save(usuario);
+		try {			
+			return usuarioRepository.save(usuario);
+		} catch (DataIntegrityViolationException e) {
+			throw new UsernameUniqueViolationException(String.format("Username {%s} ja cadastrado", usuario.getUsername()));
+		}
 	}
 
 	@Transactional(readOnly = true)
