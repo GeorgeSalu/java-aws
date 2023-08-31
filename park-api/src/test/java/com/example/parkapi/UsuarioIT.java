@@ -34,6 +34,8 @@ public class UsuarioIT {
 		Assertions.assertThat(responseBody).isNotNull();
 		Assertions.assertThat(responseBody.getId()).isNotNull();
 		Assertions.assertThat(responseBody.getUsername()).isNotNull();
+		Assertions.assertThat(responseBody.getUsername()).isEqualTo("tody@gmail.com");
+		Assertions.assertThat(responseBody.getRole()).isEqualTo("CLIENTE");
 	}
 	
 }
