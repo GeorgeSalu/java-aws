@@ -81,4 +81,46 @@ public class UsuarioIT {
 			Assertions.assertThat(responseBody.getStatus()).isEqualTo(422);
 	}
 	
+	@Test
+	public void createUsuario_ComPasswordInvalidos_RetornarErrorMessageStatus422() {
+		ErrorMessage responseBody = testClient
+			.post()
+			.uri("/api/v1/usuarios")
+			.contentType(MediaType.APPLICATION_JSON)
+			.bodyValue(new UsuarioCreateDto("tody@gmail.com",""))
+			.exchange()
+			.expectStatus().isEqualTo(422)
+			.expectBody(ErrorMessage.class)
+			.returnResult().getResponseBody();
+		
+		Assertions.assertThat(responseBody).isNotNull();
+		Assertions.assertThat(responseBody.getStatus()).isEqualTo(422);
+		
+		responseBody = testClient
+				.post()
+				.uri("/api/v1/usuarios")
+				.contentType(MediaType.APPLICATION_JSON)
+				.bodyValue(new UsuarioCreateDto("tody@gmail.com","123456233"))
+				.exchange()
+				.expectStatus().isEqualTo(422)
+				.expectBody(ErrorMessage.class)
+				.returnResult().getResponseBody();
+			
+			Assertions.assertThat(responseBody).isNotNull();
+			Assertions.assertThat(responseBody.getStatus()).isEqualTo(422);
+			
+			responseBody = testClient
+					.post()
+					.uri("/api/v1/usuarios")
+					.contentType(MediaType.APPLICATION_JSON)
+					.bodyValue(new UsuarioCreateDto("tody@gmail.com","156"))
+					.exchange()
+					.expectStatus().isEqualTo(422)
+					.expectBody(ErrorMessage.class)
+					.returnResult().getResponseBody();
+				
+			Assertions.assertThat(responseBody).isNotNull();
+			Assertions.assertThat(responseBody.getStatus()).isEqualTo(422);
+	}
+	
 }
