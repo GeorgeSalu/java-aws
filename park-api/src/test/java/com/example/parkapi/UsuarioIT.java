@@ -10,6 +10,7 @@ import org.springframework.test.web.reactive.server.WebTestClient;
 
 import com.example.parkapi.web.dto.UsuarioCreateDto;
 import com.example.parkapi.web.dto.UsuarioResponseDto;
+import com.example.parkapi.web.exception.ErrorMessage;
 
 @Sql(scripts = "/sql/usuarios/usuarios-insert.sql", executionPhase = Sql.ExecutionPhase.BEFORE_TEST_METHOD)
 @Sql(scripts = "/sql/usuarios/usuarios-delete.sql", executionPhase = Sql.ExecutionPhase.AFTER_TEST_METHOD)
@@ -36,6 +37,48 @@ public class UsuarioIT {
 		Assertions.assertThat(responseBody.getUsername()).isNotNull();
 		Assertions.assertThat(responseBody.getUsername()).isEqualTo("tody@gmail.com");
 		Assertions.assertThat(responseBody.getRole()).isEqualTo("CLIENTE");
+	}
+	
+	@Test
+	public void createUsuario_ComUsernameInvalidos_RetornarErrorMessageStatus422() {
+		ErrorMessage responseBody = testClient
+			.post()
+			.uri("/api/v1/usuarios")
+			.contentType(MediaType.APPLICATION_JSON)
+			.bodyValue(new UsuarioCreateDto("","123456"))
+			.exchange()
+			.expectStatus().isEqualTo(422)
+			.expectBody(ErrorMessage.class)
+			.returnResult().getResponseBody();
+		
+		Assertions.assertThat(responseBody).isNotNull();
+		Assertions.assertThat(responseBody.getStatus()).isEqualTo(422);
+		
+		responseBody = testClient
+				.post()
+				.uri("/api/v1/usuarios")
+				.contentType(MediaType.APPLICATION_JSON)
+				.bodyValue(new UsuarioCreateDto("tody@","123456"))
+				.exchange()
+				.expectStatus().isEqualTo(422)
+				.expectBody(ErrorMessage.class)
+				.returnResult().getResponseBody();
+			
+			Assertions.assertThat(responseBody).isNotNull();
+			Assertions.assertThat(responseBody.getStatus()).isEqualTo(422);
+			
+			responseBody = testClient
+					.post()
+					.uri("/api/v1/usuarios")
+					.contentType(MediaType.APPLICATION_JSON)
+					.bodyValue(new UsuarioCreateDto("tody@email","123456"))
+					.exchange()
+					.expectStatus().isEqualTo(422)
+					.expectBody(ErrorMessage.class)
+					.returnResult().getResponseBody();
+				
+			Assertions.assertThat(responseBody).isNotNull();
+			Assertions.assertThat(responseBody.getStatus()).isEqualTo(422);
 	}
 	
 }
