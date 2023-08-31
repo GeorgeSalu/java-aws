@@ -1,5 +1,7 @@
 package com.example.parkapi;
 
+import java.util.List;
+
 import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -267,6 +269,20 @@ public class UsuarioIT {
 
        Assertions.assertThat(responseBody).isNotNull();
        Assertions.assertThat(responseBody.getStatus()).isEqualTo(400);
+   }
+   
+   @Test
+   public void listarUsuarios_SemQualquerParametro_RetornarListaDeUsuariosComStatus200() {
+       List<UsuarioResponseDto> responseBody = testClient
+               .get()
+               .uri("/api/v1/usuarios")
+               .exchange()
+               .expectStatus().isOk()
+               .expectBodyList(UsuarioResponseDto.class)
+               .returnResult().getResponseBody();
+
+       org.assertj.core.api.Assertions.assertThat(responseBody).isNotNull();
+       org.assertj.core.api.Assertions.assertThat(responseBody.size()).isEqualTo(3);
    }
 	
 }
