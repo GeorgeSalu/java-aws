@@ -1,1 +1,1 @@
-delete from usuario;
+delete from usuarios;
