@@ -7,6 +7,8 @@ import com.example.parkapi.entity.Usuario;
 
 public class JwtUserDetails extends User{
 
+	private static final long serialVersionUID = 2019063818495808966L;
+	
 	private Usuario usuario;
 	
 	public JwtUserDetails(Usuario usuario) {
