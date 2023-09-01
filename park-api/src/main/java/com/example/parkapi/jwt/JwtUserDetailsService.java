@@ -13,6 +13,10 @@ public class JwtUserDetailsService implements UserDetailsService {
 
 	private UsuarioService usuarioService;
 	
+	public JwtUserDetailsService(UsuarioService usuarioService) {
+		this.usuarioService = usuarioService;
+	}
+
 	@Override
 	public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
 		Usuario usuario = usuarioService.buscarPorUsername(username);
