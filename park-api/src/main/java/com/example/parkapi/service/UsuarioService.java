@@ -7,7 +7,6 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.example.parkapi.entity.Usuario;
-import com.example.parkapi.entity.Usuario.Role;
 import com.example.parkapi.exception.EntityNotFoundException;
 import com.example.parkapi.exception.PasswordInvalidException;
 import com.example.parkapi.exception.UsernameUniqueViolationException;
