@@ -26,6 +26,7 @@ import io.swagger.v3.oas.annotations.media.ArraySchema;
 import io.swagger.v3.oas.annotations.media.Content;
 import io.swagger.v3.oas.annotations.media.Schema;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
+import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
 
@@ -60,10 +61,13 @@ public class UsuarioController {
 	
 	@Operation(
 			summary = "recuperar um usuario pelo id",
+			security = @SecurityRequirement(name = "security"),
 			description = "recuperar um usuario pelo id",
 			responses = {
 					@ApiResponse(responseCode = "200", description = "Recurso recuperado com sucesso", 
 							content = @Content(mediaType = "application/json", schema = @Schema(implementation = UsuarioResponseDto.class))),
+					@ApiResponse(responseCode = "403", description = "usuario sem permissao para acessar este recurso",
+						content = @Content(mediaType = "application/json", schema = @Schema(implementation = ErrorMessage.class))),
 					@ApiResponse(responseCode = "404", description = "recurso não encontrado",
 						content = @Content(mediaType = "application/json", schema = @Schema(implementation = ErrorMessage.class)))
 			}
@@ -77,11 +81,14 @@ public class UsuarioController {
 	
 	@Operation(
 			summary = "atualizar senha",
+			security = @SecurityRequirement(name = "security"),
 			description = "atualizar senha",
 			responses = {
 					@ApiResponse(responseCode = "204", description = "senha atualizada com sucesso", 
 							content = @Content(mediaType = "application/json", schema = @Schema(implementation = Void.class))),
 					@ApiResponse(responseCode = "400", description = "senha não confere",
+						content = @Content(mediaType = "application/json", schema = @Schema(implementation = ErrorMessage.class))),
+					@ApiResponse(responseCode = "403", description = "usuario sem permissao para acessar este recurso",
 						content = @Content(mediaType = "application/json", schema = @Schema(implementation = ErrorMessage.class))),
 					@ApiResponse(responseCode = "404", description = "recurso não encontrado",
 						content = @Content(mediaType = "application/json", schema = @Schema(implementation = ErrorMessage.class)))
@@ -96,8 +103,11 @@ public class UsuarioController {
 	
 	@Operation(
 			summary = "Listar todos os usuarios",
+			security = @SecurityRequirement(name = "security"),
 			description = "listar todos os usuarios cadastrados",
 			responses = {
+					@ApiResponse(responseCode = "403", description = "usuario sem permissao para acessar este recurso",
+							content = @Content(mediaType = "application/json", schema = @Schema(implementation = ErrorMessage.class))),
 					@ApiResponse(responseCode = "200", description = "lista com todos os usuarios cadastrados", 
 							content = @Content(mediaType = "application/json", 
 							array = @ArraySchema(schema = @Schema(implementation = UsuarioResponseDto.class))))
