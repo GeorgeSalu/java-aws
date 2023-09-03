@@ -18,9 +18,13 @@ public class SpringDocOpenApiConfig {
 		return new OpenAPI()
 				.components(new Components().addSecuritySchemes("security", securityScheme()))
 				.info(
-				new Info().title("REST API - spring park").description("API para gestao de estacionamento de veiculos")
-						.version("v1").license(new License().name("Apache 2.0").url("https://www.apache.com.br"))
-						.contact(new Contact().name("George")));
+						new Info()
+								.title("REST API - spring park")
+								.description("API para gestao de estacionamento de veiculos")
+								.version("v1")
+								.license(new License().name("Apache 2.0").url("https://www.apache.com.br"))
+								.contact(new Contact().name("George"))
+				);
 	}
 
 	private SecurityScheme securityScheme() {
