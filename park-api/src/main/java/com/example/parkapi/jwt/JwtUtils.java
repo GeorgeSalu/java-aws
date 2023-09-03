@@ -59,7 +59,7 @@ public class JwtUtils {
 		try {
 			return Jwts.parserBuilder()
 						.setSigningKey(generateKey()).build()
-						.parseClaimsJwt(refactorToken(token)).getBody();
+						.parseClaimsJws(refactorToken(token)).getBody();
 		} catch (JwtException e) {
 			log.error(String.format("Token invalido %s", e.getMessage()));
 		}
@@ -74,7 +74,7 @@ public class JwtUtils {
 		try {
 			Jwts.parserBuilder()
 						.setSigningKey(generateKey()).build()
-						.parseClaimsJwt(refactorToken(token));
+						.parseClaimsJws(refactorToken(token));
 			return true;
 		} catch (JwtException e) {
 			log.error(String.format("Token invalido %s", e.getMessage()));
