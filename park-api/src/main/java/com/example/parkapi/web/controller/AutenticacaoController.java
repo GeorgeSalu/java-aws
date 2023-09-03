@@ -26,8 +26,8 @@ public class AutenticacaoController {
 	
 	private static final Logger log = LoggerFactory.getLogger(AutenticacaoController.class);
 
-	private JwtUserDetailsService detailsService;
-	private AuthenticationManager authenticationManager;
+	private final JwtUserDetailsService detailsService;
+	private final AuthenticationManager authenticationManager;
 	
 	public AutenticacaoController(JwtUserDetailsService detailsService, AuthenticationManager authenticationManager) {
 		this.detailsService = detailsService;
