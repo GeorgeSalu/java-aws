@@ -29,7 +29,7 @@ public class JwtAuthorizationFilter extends OncePerRequestFilter {
 		final String token = request.getHeader(JwtUtils.JWT_AUTHORIZATION);
 		
 		if(token == null || !token.startsWith(JwtUtils.JWT_BEARER)) {
-			log.info("Jwt token esta nulo, vazio ou não iniciado com 'BEarer '.");
+			log.info("Jwt token esta nulo, vazio ou não iniciado com 'Bearer '.");
 			filterChain.doFilter(request, response);
 			return;
 		}
