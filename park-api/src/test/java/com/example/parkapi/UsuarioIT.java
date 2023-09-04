@@ -345,18 +345,19 @@ public class UsuarioIT {
         Assertions.assertThat(responseBody.getStatus()).isEqualTo(400);
     }
    
-   @Test
-   public void listarUsuarios_SemQualquerParametro_RetornarListaDeUsuariosComStatus200() {
-       List<UsuarioResponseDto> responseBody = testClient
-               .get()
-               .uri("/api/v1/usuarios")
-               .exchange()
-               .expectStatus().isOk()
-               .expectBodyList(UsuarioResponseDto.class)
-               .returnResult().getResponseBody();
+    @Test
+    public void listarUsuarios_ComUsuarioComPermissao_RetornarListaDeUsuariosComStatus200() {
+        List<UsuarioResponseDto> responseBody = testClient
+                .get()
+                .uri("/api/v1/usuarios")
+                .headers(JwtAuthentication.getHeaderAuthorization(testClient, "ana@email.com", "123456"))
+                .exchange()
+                .expectStatus().isOk()
+                .expectBodyList(UsuarioResponseDto.class)
+                .returnResult().getResponseBody();
 
-       org.assertj.core.api.Assertions.assertThat(responseBody).isNotNull();
-       org.assertj.core.api.Assertions.assertThat(responseBody.size()).isEqualTo(3);
-   }
+        Assertions.assertThat(responseBody).isNotNull();
+        Assertions.assertThat(responseBody.size()).isEqualTo(3);
+    }
 	
 }
