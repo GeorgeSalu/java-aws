@@ -45,7 +45,7 @@ public class AutenticacaoController {
 			summary = "autenticar na api",
 			description = "Recurso de autenticacao na api",
 			responses = {
-					@ApiResponse(responseCode = "200", description = "Autenticacao realizada com sucesso e retorno de um berar token", 
+					@ApiResponse(responseCode = "200", description = "Autenticacao realizada com sucesso e retorno de um bearer token", 
 							content = @Content(mediaType = "application/json", schema = @Schema(implementation = UsuarioResponseDto.class))),
 					@ApiResponse(responseCode = "400", description = "credenciais invalidas",
 							content = @Content(mediaType = "application/json", schema = @Schema(implementation = ErrorMessage.class))),
