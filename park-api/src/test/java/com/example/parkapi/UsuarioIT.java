@@ -269,11 +269,12 @@ public class UsuarioIT {
         Assertions.assertThat(responseBody.getStatus()).isEqualTo(403);
     }
 	
-   @Test
+    @Test
     public void editarSenha_ComCamposInvalidos_RetornarErrorMessageComStatus422() {
         ErrorMessage responseBody = testClient
                 .patch()
                 .uri("/api/v1/usuarios/100")
+                .headers(JwtAuthentication.getHeaderAuthorization(testClient, "ana@email.com", "123456"))
                 .contentType(MediaType.APPLICATION_JSON)
                 .bodyValue(new UsuarioSenhaDto("", "", ""))
                 .exchange()
@@ -287,6 +288,7 @@ public class UsuarioIT {
         responseBody = testClient
                 .patch()
                 .uri("/api/v1/usuarios/100")
+                .headers(JwtAuthentication.getHeaderAuthorization(testClient, "ana@email.com", "123456"))
                 .contentType(MediaType.APPLICATION_JSON)
                 .bodyValue(new UsuarioSenhaDto("12345", "12345", "12345"))
                 .exchange()
@@ -300,6 +302,7 @@ public class UsuarioIT {
         responseBody = testClient
                 .patch()
                 .uri("/api/v1/usuarios/100")
+                .headers(JwtAuthentication.getHeaderAuthorization(testClient, "ana@email.com", "123456"))
                 .contentType(MediaType.APPLICATION_JSON)
                 .bodyValue(new UsuarioSenhaDto("12345678", "12345678", "12345678"))
                 .exchange()
@@ -311,34 +314,36 @@ public class UsuarioIT {
         Assertions.assertThat(responseBody.getStatus()).isEqualTo(422);
     }
    
-   @Test
-   public void editarSenha_ComSenhaInvalidas_RetornarErrorMessageComStatus400() {
-       ErrorMessage responseBody = testClient
-               .patch()
-               .uri("/api/v1/usuarios/100")
-               .contentType(MediaType.APPLICATION_JSON)
-               .bodyValue(new UsuarioSenhaDto("123456", "123456", "000000"))
-               .exchange()
-               .expectStatus().isEqualTo(400)
-               .expectBody(ErrorMessage.class)
-               .returnResult().getResponseBody();
+    @Test
+    public void editarSenha_ComSenhaInvalidas_RetornarErrorMessageComStatus400() {
+        ErrorMessage responseBody = testClient
+                .patch()
+                .uri("/api/v1/usuarios/100")
+                .headers(JwtAuthentication.getHeaderAuthorization(testClient, "ana@email.com", "123456"))
+                .contentType(MediaType.APPLICATION_JSON)
+                .bodyValue(new UsuarioSenhaDto("123456", "123456", "000000"))
+                .exchange()
+                .expectStatus().isEqualTo(400)
+                .expectBody(ErrorMessage.class)
+                .returnResult().getResponseBody();
 
-       Assertions.assertThat(responseBody).isNotNull();
-       Assertions.assertThat(responseBody.getStatus()).isEqualTo(400);
+        Assertions.assertThat(responseBody).isNotNull();
+        Assertions.assertThat(responseBody.getStatus()).isEqualTo(400);
 
-       responseBody = testClient
-               .patch()
-               .uri("/api/v1/usuarios/100")
-               .contentType(MediaType.APPLICATION_JSON)
-               .bodyValue(new UsuarioSenhaDto("000000", "123456", "123456"))
-               .exchange()
-               .expectStatus().isEqualTo(400)
-               .expectBody(ErrorMessage.class)
-               .returnResult().getResponseBody();
+        responseBody = testClient
+                .patch()
+                .uri("/api/v1/usuarios/100")
+                .headers(JwtAuthentication.getHeaderAuthorization(testClient, "ana@email.com", "123456"))
+                .contentType(MediaType.APPLICATION_JSON)
+                .bodyValue(new UsuarioSenhaDto("000000", "123456", "123456"))
+                .exchange()
+                .expectStatus().isEqualTo(400)
+                .expectBody(ErrorMessage.class)
+                .returnResult().getResponseBody();
 
-       Assertions.assertThat(responseBody).isNotNull();
-       Assertions.assertThat(responseBody.getStatus()).isEqualTo(400);
-   }
+        Assertions.assertThat(responseBody).isNotNull();
+        Assertions.assertThat(responseBody.getStatus()).isEqualTo(400);
+    }
    
    @Test
    public void listarUsuarios_SemQualquerParametro_RetornarListaDeUsuariosComStatus200() {
