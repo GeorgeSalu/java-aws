@@ -10,6 +10,7 @@ import org.springframework.test.web.reactive.server.WebTestClient;
 
 import com.example.parkapi.jwt.JwtToken;
 import com.example.parkapi.web.dto.UsuarioLoginDto;
+import com.example.parkapi.web.exception.ErrorMessage;
 
 @Sql(scripts = "/sql/usuarios/usuarios-insert.sql", executionPhase = Sql.ExecutionPhase.BEFORE_TEST_METHOD)
 @Sql(scripts = "/sql/usuarios/usuarios-delete.sql", executionPhase = Sql.ExecutionPhase.AFTER_TEST_METHOD)
@@ -34,5 +35,33 @@ public class AutenticacaoIT {
         Assertions.assertThat(responseBody).isNotNull();
     }
 
+   @Test
+   public void autenticar_ComCredenciaisInvalidas_RetornarErrorMessageStatus400() {
+       ErrorMessage responseBody = testClient
+               .post()
+               .uri("/api/v1/auth")
+               .contentType(MediaType.APPLICATION_JSON)
+               .bodyValue(new UsuarioLoginDto("invalido@email.com", "123456"))
+               .exchange()
+               .expectStatus().isBadRequest()
+               .expectBody(ErrorMessage.class)
+               .returnResult().getResponseBody();
+
+       Assertions.assertThat(responseBody).isNotNull();
+       Assertions.assertThat(responseBody.getStatus()).isEqualTo(400);
+
+       responseBody = testClient
+               .post()
+               .uri("/api/v1/auth")
+               .contentType(MediaType.APPLICATION_JSON)
+               .bodyValue(new UsuarioLoginDto("ana@email.com", "000000"))
+               .exchange()
+               .expectStatus().isBadRequest()
+               .expectBody(ErrorMessage.class)
+               .returnResult().getResponseBody();
+
+       Assertions.assertThat(responseBody).isNotNull();
+       Assertions.assertThat(responseBody.getStatus()).isEqualTo(400);
+   }
 	
 }
