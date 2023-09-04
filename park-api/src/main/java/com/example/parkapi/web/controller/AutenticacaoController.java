@@ -15,11 +15,18 @@ import org.springframework.web.bind.annotation.RestController;
 import com.example.parkapi.jwt.JwtToken;
 import com.example.parkapi.jwt.JwtUserDetailsService;
 import com.example.parkapi.web.dto.UsuarioLoginDto;
+import com.example.parkapi.web.dto.UsuarioResponseDto;
 import com.example.parkapi.web.exception.ErrorMessage;
 
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.media.Content;
+import io.swagger.v3.oas.annotations.media.Schema;
+import io.swagger.v3.oas.annotations.responses.ApiResponse;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.validation.Valid;
 
+@Tag(name = "Autenticação", description = "recurso para proceder com a autenticacao na api")
 @RestController
 @RequestMapping("/api/v1")
 public class AutenticacaoController {
@@ -34,6 +41,18 @@ public class AutenticacaoController {
 		this.authenticationManager = authenticationManager;
 	}
 	
+	@Operation(
+			summary = "autenticar na api",
+			description = "Recurso de autenticacao na api",
+			responses = {
+					@ApiResponse(responseCode = "200", description = "Autenticacao realizada com sucesso e retorno de um berar token", 
+							content = @Content(mediaType = "application/json", schema = @Schema(implementation = UsuarioResponseDto.class))),
+					@ApiResponse(responseCode = "400", description = "credenciais invalidas",
+							content = @Content(mediaType = "application/json", schema = @Schema(implementation = ErrorMessage.class))),
+					@ApiResponse(responseCode = "422", description = "campos invalidos",
+						content = @Content(mediaType = "application/json", schema = @Schema(implementation = ErrorMessage.class)))
+			}
+	)
 	@PostMapping("/auth")
 	public ResponseEntity<?> autenticar(@RequestBody @Valid UsuarioLoginDto dto, HttpServletRequest request) {
 		log.info("Processo de autenticacao pelo login {}", dto.getUsername());
