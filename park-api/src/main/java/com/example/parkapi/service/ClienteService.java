@@ -8,6 +8,8 @@ import com.example.parkapi.entity.Cliente;
 import com.example.parkapi.exception.CpfUniqueViolationException;
 import com.example.parkapi.repository.ClienteRepository;
 
+import jakarta.persistence.EntityNotFoundException;
+
 @Service
 public class ClienteService {
 
@@ -26,6 +28,13 @@ public class ClienteService {
 					String.format("cpf '%s' não pode ser cadastrado, ja existe no sistema", cliente.getCpf())
 			);
 		}
+	}
+
+	@Transactional(readOnly = true)
+	public Cliente buscarPorId(Long id) {
+		return clienteRepository.findById(id).orElseThrow(
+				() -> new EntityNotFoundException(String.format("Cliente id=%s não encontrado no sistema", id))
+		);
 	}
 	
 }
