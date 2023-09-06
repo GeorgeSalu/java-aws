@@ -20,7 +20,7 @@ import com.example.parkapi.web.dto.mapper.ClienteMapper;
 import jakarta.validation.Valid;
 
 @RestController
-@RequestMapping("api/v1/cliente")
+@RequestMapping("api/v1/clientes")
 public class ClienteController {
 
 	private final ClienteService clienteService;
