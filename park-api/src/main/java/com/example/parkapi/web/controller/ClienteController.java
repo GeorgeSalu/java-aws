@@ -39,7 +39,7 @@ public class ClienteController {
 		Cliente cliente = ClienteMapper.toCliente(dto);
 		cliente.setUsuario(usuarioService.buscarPorId(userDetails.getId()));
 		clienteService.salvar(cliente);
-		return ResponseEntity.status(201).body(ClienteMapper.todto(cliente));
+		return ResponseEntity.status(201).body(ClienteMapper.toDto(cliente));
 	}
 	
 }
