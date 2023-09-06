@@ -44,6 +44,7 @@ public class ClienteController {
 		return ResponseEntity.status(201).body(ClienteMapper.toDto(cliente));
 	}
 	
+	@PreAuthorize("hasRole('ADMIN')")
 	@GetMapping("/{id}")
 	public ResponseEntity<ClienteResponseDto> getById(@PathVariable Long id) {
 		Cliente cliente = clienteService.buscarPorId(id);
