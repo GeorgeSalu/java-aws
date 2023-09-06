@@ -6,9 +6,9 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.example.parkapi.entity.Cliente;
 import com.example.parkapi.exception.CpfUniqueViolationException;
+import com.example.parkapi.exception.EntityNotFoundException;
 import com.example.parkapi.repository.ClienteRepository;
 
-import jakarta.persistence.EntityNotFoundException;
 
 @Service
 public class ClienteService {
