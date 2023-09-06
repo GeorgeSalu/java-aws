@@ -25,6 +25,8 @@ import jakarta.persistence.Table;
 @EntityListeners(AuditingEntityListener.class)
 public class Cliente implements Serializable {
 
+	private static final long serialVersionUID = -2433141489845791620L;
+
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "id")
