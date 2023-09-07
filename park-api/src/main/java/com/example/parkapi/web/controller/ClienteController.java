@@ -1,7 +1,5 @@
 package com.example.parkapi.web.controller;
 
-import java.util.List;
-
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.ResponseEntity;
@@ -21,7 +19,6 @@ import com.example.parkapi.service.UsuarioService;
 import com.example.parkapi.web.dto.ClienteCreateDto;
 import com.example.parkapi.web.dto.ClienteResponseDto;
 import com.example.parkapi.web.dto.mapper.ClienteMapper;
-
 
 import jakarta.validation.Valid;
 
