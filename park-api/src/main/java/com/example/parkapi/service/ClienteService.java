@@ -10,6 +10,7 @@ import com.example.parkapi.entity.Cliente;
 import com.example.parkapi.exception.CpfUniqueViolationException;
 import com.example.parkapi.exception.EntityNotFoundException;
 import com.example.parkapi.repository.ClienteRepository;
+import com.example.parkapi.repository.projection.ClienteProjection;
 
 
 @Service
@@ -40,8 +41,8 @@ public class ClienteService {
 	}
 
 	@Transactional(readOnly = true)
-	public Page<Cliente> buscarTodos(Pageable pageable) {
-		return clienteRepository.findAll(pageable);
+	public Page<ClienteProjection> buscarTodos(Pageable pageable) {
+		return clienteRepository.findAllPageable(pageable);
 	}
 	
 }

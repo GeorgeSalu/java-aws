@@ -14,11 +14,14 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.example.parkapi.entity.Cliente;
 import com.example.parkapi.jwt.JwtUserDetails;
+import com.example.parkapi.repository.projection.ClienteProjection;
 import com.example.parkapi.service.ClienteService;
 import com.example.parkapi.service.UsuarioService;
 import com.example.parkapi.web.dto.ClienteCreateDto;
 import com.example.parkapi.web.dto.ClienteResponseDto;
+import com.example.parkapi.web.dto.PageableDto;
 import com.example.parkapi.web.dto.mapper.ClienteMapper;
+import com.example.parkapi.web.dto.mapper.PageableMapper;
 
 import jakarta.validation.Valid;
 
@@ -54,9 +57,9 @@ public class ClienteController {
 	
 	@GetMapping
 	@PreAuthorize("hasRole('ADMIN')")
-	public ResponseEntity<Page<Cliente>> getAll(Pageable pageable) {
-		Page<Cliente> clientes = clienteService.buscarTodos(pageable);
-		return ResponseEntity.ok(clientes);
+	public ResponseEntity<PageableDto> getAll(Pageable pageable) {
+		Page<ClienteProjection> clientes = clienteService.buscarTodos(pageable);
+		return ResponseEntity.ok(PageableMapper.toDto(clientes));
 	}
 	
 }
