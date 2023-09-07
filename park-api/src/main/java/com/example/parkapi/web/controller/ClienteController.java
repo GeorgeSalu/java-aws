@@ -22,6 +22,8 @@ import com.example.parkapi.web.dto.ClienteResponseDto;
 import com.example.parkapi.web.dto.PageableDto;
 import com.example.parkapi.web.dto.mapper.ClienteMapper;
 import com.example.parkapi.web.dto.mapper.PageableMapper;
+import io.swagger.v3.oas.annotations.Parameter;
+import org.springframework.data.web.PageableDefault;
 
 import jakarta.validation.Valid;
 
@@ -57,7 +59,7 @@ public class ClienteController {
 	
 	@GetMapping
 	@PreAuthorize("hasRole('ADMIN')")
-	public ResponseEntity<PageableDto> getAll(Pageable pageable) {
+	public ResponseEntity<PageableDto> getAll(@Parameter(hidden = true) @PageableDefault(size = 5, sort = {"nome"}) Pageable pageable) {
 		Page<ClienteProjection> clientes = clienteService.buscarTodos(pageable);
 		return ResponseEntity.ok(PageableMapper.toDto(clientes));
 	}
