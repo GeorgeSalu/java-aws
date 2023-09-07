@@ -159,7 +159,7 @@ public class ClienteIT {
                 .expectBody(ErrorMessage.class)
                 .returnResult().getResponseBody();
 
-        org.assertj.core.api.Assertions.assertThat(responseBody).isNotNull();
-        org.assertj.core.api.Assertions.assertThat(responseBody.getStatus()).isEqualTo(403);
+        Assertions.assertThat(responseBody).isNotNull();
+        Assertions.assertThat(responseBody.getStatus()).isEqualTo(403);
     }
 }
