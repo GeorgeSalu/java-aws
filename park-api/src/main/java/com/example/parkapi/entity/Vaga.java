@@ -25,6 +25,8 @@ import jakarta.persistence.Table;
 @EntityListeners(AuditingEntityListener.class)
 public class Vaga implements Serializable {
 
+	private static final long serialVersionUID = 3879967269299294597L;
+	
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "id")
