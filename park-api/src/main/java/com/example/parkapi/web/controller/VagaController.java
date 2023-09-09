@@ -85,7 +85,7 @@ public class VagaController {
             })
 	@GetMapping("/{codigo}")
 	@PreAuthorize("hasRole('ADMIN')")
-	public ResponseEntity<VagaResponseDto> create(@PathVariable String codigo) {
+	public ResponseEntity<VagaResponseDto> getByCodigo(@PathVariable String codigo) {
 		Vaga vaga = vagaService.buscarPorCodigo(codigo);
 		return ResponseEntity.ok(VagaMapper.toDto(vaga));
 	}
