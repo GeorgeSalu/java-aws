@@ -88,4 +88,48 @@ public class EstacionamentoIT {
                 .jsonPath("method").isEqualTo("POST");
     }
 	
+    @Test
+    public void criarCheckin_ComCpfInexistente_RetornarErrorStatus404() {
+        EstacionamentoCreateDto createDto = new EstacionamentoCreateDto();
+        createDto.setPlaca("WER-1111");
+        createDto.setMarca("FIAT");
+        createDto.setModelo("PALIO 1.0");
+        createDto.setCor("AZUL");
+        createDto.setClienteCpf("33838667000");
+
+        testClient.post().uri("/api/v1/estacionamentos/check-in")
+                .contentType(MediaType.APPLICATION_JSON)
+                .headers(JwtAuthentication.getHeaderAuthorization(testClient, "ana@email.com.br", "123456"))
+                .bodyValue(createDto)
+                .exchange()
+                .expectStatus().isNotFound()
+                .expectBody()
+                .jsonPath("status").isEqualTo("404")
+                .jsonPath("path").isEqualTo("/api/v1/estacionamentos/check-in")
+                .jsonPath("method").isEqualTo("POST");
+    }
+    
+    @Sql(scripts = "/sql/estacionamentos/estacionamento-insert-vagas-ocupadas.sql", executionPhase = Sql.ExecutionPhase.BEFORE_TEST_METHOD)
+    @Sql(scripts = "/sql/estacionamentos/estacionamento-delete-vagas-ocupadas.sql", executionPhase = Sql.ExecutionPhase.AFTER_TEST_METHOD)
+    @Test
+    public void criarCheckin_ComVagasOcupadas_RetornarErrorStatus404() {
+        EstacionamentoCreateDto createDto = new EstacionamentoCreateDto();
+        createDto.setPlaca("WER-1111");
+        createDto.setMarca("FIAT");
+        createDto.setModelo("PALIO 1.0");
+        createDto.setCor("AZUL");
+        createDto.setClienteCpf("09191773016");
+
+        testClient.post().uri("/api/v1/estacionamentos/check-in")
+                .contentType(MediaType.APPLICATION_JSON)
+                .headers(JwtAuthentication.getHeaderAuthorization(testClient, "ana@email.com.br", "123456"))
+                .bodyValue(createDto)
+                .exchange()
+                .expectStatus().isNotFound()
+                .expectBody()
+                .jsonPath("status").isEqualTo("404")
+                .jsonPath("path").isEqualTo("/api/v1/estacionamentos/check-in")
+                .jsonPath("method").isEqualTo("POST");
+    }
+    
 }
