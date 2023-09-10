@@ -7,11 +7,11 @@ import com.example.parkapi.entity.ClienteVaga;
 import com.example.parkapi.repository.ClienteVagaRepository;
 
 @Service
-public class ClientVagaService {
+public class ClienteVagaService {
 
 	private final ClienteVagaRepository repository;
 
-	public ClientVagaService(ClienteVagaRepository repository) {
+	public ClienteVagaService(ClienteVagaRepository repository) {
 		this.repository = repository;
 	}
 

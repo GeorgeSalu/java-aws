@@ -5,15 +5,16 @@ import org.springframework.stereotype.Service;
 @Service
 public class EstacionamentoService {
 
-	private final ClientVagaService clientVagaService;
+	private final ClienteVagaService clienteVagaService;
 	private final ClienteService clienteService;
 	private final VagaService service;
 
-	public EstacionamentoService(ClientVagaService clientVagaService, ClienteService clienteService,
+	public EstacionamentoService(ClienteVagaService clienteVagaService, ClienteService clienteService,
 			VagaService service) {
-		this.clientVagaService = clientVagaService;
+		this.clienteVagaService = clienteVagaService;
 		this.clienteService = clienteService;
 		this.service = service;
 	}
+	
 
 }
