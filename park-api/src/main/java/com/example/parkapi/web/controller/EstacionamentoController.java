@@ -40,6 +40,9 @@ import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 import jakarta.validation.Valid;
 
+import static io.swagger.v3.oas.annotations.enums.ParameterIn.PATH;
+import static io.swagger.v3.oas.annotations.enums.ParameterIn.QUERY;
+
 @RestController
 @RequestMapping("api/v1/estacionamentos")
 public class EstacionamentoController {
@@ -87,6 +90,20 @@ public class EstacionamentoController {
 		return ResponseEntity.created(location).body(responseDto);
 	}
 	
+    @Operation(summary = "Localizar um veículo estacionado", description = "Recurso para retornar um veículo estacionado " +
+            "pelo nº do recibo. Requisição exige uso de um bearer token.",
+            security = @SecurityRequirement(name = "security"),
+            parameters = {
+                @Parameter(in = PATH, name = "recibo", description = "Número do rebibo gerado pelo check-in")
+            },
+            responses = {
+                    @ApiResponse(responseCode = "200", description = "Recurso localizado com sucesso",
+                            content = @Content(mediaType = " application/json;charset=UTF-8",
+                                    schema = @Schema(implementation = EstacionamentoResponseDto.class))),
+                    @ApiResponse(responseCode = "404", description = "Número do recibo não encontrado.",
+                            content = @Content(mediaType = " application/json;charset=UTF-8",
+                                    schema = @Schema(implementation = ErrorMessage.class)))
+            })
     @GetMapping("/check-in/{recibo}")
     @PreAuthorize("hasAnyRole('ADMIN', 'CLIENTE')")
     public ResponseEntity<EstacionamentoResponseDto> getByRecibo(@PathVariable String recibo) {
