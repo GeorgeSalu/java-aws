@@ -10,6 +10,7 @@ public class EstacionamentoUtils {
     private static final double PRIMEIROS_15_MINUTES = 5.00;
     private static final double PRIMEIROS_60_MINUTES = 9.25;
     private static final double ADICIONAL_15_MINUTES = 1.75;
+    private static final double DESCONTO_PERCENTUAL = 0.30;
 
     public static BigDecimal calcularCusto(LocalDateTime entrada, LocalDateTime saida) {
         long minutes = entrada.until(saida, ChronoUnit.MINUTES);
@@ -30,6 +31,13 @@ public class EstacionamentoUtils {
         }
 
         return new BigDecimal(total).setScale(2, RoundingMode.HALF_EVEN);
+    }
+    
+    public static BigDecimal calcularDesconto(BigDecimal custo, long numeroDeVezes) {
+        BigDecimal desconto = ((numeroDeVezes > 0) && (numeroDeVezes % 10 == 0))
+                ? custo.multiply(new BigDecimal(DESCONTO_PERCENTUAL))
+                : new BigDecimal(0);
+        return desconto.setScale(2, RoundingMode.HALF_EVEN);
     }
 
 	public static String gerarRecibo() {
