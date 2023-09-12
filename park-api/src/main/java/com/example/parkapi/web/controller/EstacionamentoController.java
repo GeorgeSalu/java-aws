@@ -176,6 +176,8 @@ public class EstacionamentoController {
     }
     
     @Operation(summary = "Localizar os registros de estacionamentos do cliente logado",
+            description = "Localizar os registros de estacionamentos do cliente logado. " +
+                    "Requisição exige uso de um bearer token.",
             security = @SecurityRequirement(name = "security"),
             parameters = {
                     @Parameter(in = QUERY, name = "page",
