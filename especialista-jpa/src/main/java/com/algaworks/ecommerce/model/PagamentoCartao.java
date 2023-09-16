@@ -1,5 +1,7 @@
 package com.algaworks.ecommerce.model;
 
+import java.math.BigDecimal;
+
 import javax.persistence.Entity;
 import javax.persistence.Id;
 
@@ -11,12 +13,13 @@ import lombok.Setter;
 @Setter
 @EqualsAndHashCode(onlyExplicitlyIncluded = true)
 @Entity
-public class Cliente {
+public class PagamentoCartao {
 
 	@EqualsAndHashCode.Include
 	@Id
 	private Integer id;
-	private String nome;
-	private SexoCliente sexo;
-
+	private Integer pedidoId;
+	private String numero;
+	private StatusPagamento status;
+	
 }
