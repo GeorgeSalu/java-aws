@@ -11,6 +11,47 @@ import com.algaworks.ecommerce.model.Produto;
 public class OperacoesComTransacaoTest extends EntityManagerTest {
 	
 	@Test
+	public void mostrarDiferencaPersistMerge() {
+		Produto produto = new Produto();
+		
+		produto.setId(5);
+		produto.setNome("Smartfone one plus");
+		produto.setDescricao("O procesador mas rapido");
+		produto.setPreco(new BigDecimal(5000));
+		
+		// o persist so roda comandos de insert 
+		entityManager.getTransaction().begin();
+		entityManager.persist(produto);
+		entityManager.getTransaction().commit();
+
+		// limpa o entity manager fazendo com que a a proxima operação de find ja no banco de dados 
+		// sem o "entityManager.clear()" ele pega o que esta na memoria
+		entityManager.clear();
+	
+		Produto produtoVerificacaoPersist = entityManager.find(Produto.class, produto.getId());
+		Assert.assertNotNull(produtoVerificacaoPersist);
+		
+		Produto produtoMerge = new Produto();
+		
+		produtoMerge.setId(6);
+		produtoMerge.setNome("Notebook dell");
+		produtoMerge.setDescricao("O melhor da categoria");
+		produtoMerge.setPreco(new BigDecimal(2000));
+		
+		// o merge serge para atualizar e salvar 
+		entityManager.getTransaction().begin();
+		entityManager.merge(produtoMerge);
+		entityManager.getTransaction().commit();
+
+		// limpa o entity manager fazendo com que a a proxima operação de find ja no banco de dados 
+		// sem o "entityManager.clear()" ele pega o que esta na memoria
+		entityManager.clear();
+	
+		Produto produtoVerificacaoMerge = entityManager.find(Produto.class, produtoMerge.getId());
+		Assert.assertNotNull(produtoVerificacaoMerge);
+	}
+	
+	@Test
 	public void inseriObjetoComMerge() {
 		Produto produto = new Produto();
 		
