@@ -31,7 +31,6 @@ public class OperacoesComTransacaoTest extends EntityManagerTest {
 	public void mostrarDiferencaPersistMerge() {
 		Produto produto = new Produto();
 		
-		produto.setId(5);
 		produto.setNome("Smartfone one plus");
 		produto.setDescricao("O procesador mas rapido");
 		produto.setPreco(new BigDecimal(5000));
@@ -50,21 +49,20 @@ public class OperacoesComTransacaoTest extends EntityManagerTest {
 		
 		Produto produtoMerge = new Produto();
 		
-		produtoMerge.setId(6);
 		produtoMerge.setNome("Notebook dell");
 		produtoMerge.setDescricao("O melhor da categoria");
 		produtoMerge.setPreco(new BigDecimal(2000));
 		
 		// o merge serge para atualizar e salvar 
 		entityManager.getTransaction().begin();
-		entityManager.merge(produtoMerge);
+		Produto produtoSalvo = entityManager.merge(produtoMerge);
 		entityManager.getTransaction().commit();
 
 		// limpa o entity manager fazendo com que a a proxima operação de find ja no banco de dados 
 		// sem o "entityManager.clear()" ele pega o que esta na memoria
 		entityManager.clear();
 	
-		Produto produtoVerificacaoMerge = entityManager.find(Produto.class, produtoMerge.getId());
+		Produto produtoVerificacaoMerge = entityManager.find(Produto.class, produtoSalvo.getId());
 		Assert.assertNotNull(produtoVerificacaoMerge);
 	}
 	
@@ -72,20 +70,19 @@ public class OperacoesComTransacaoTest extends EntityManagerTest {
 	public void inseriObjetoComMerge() {
 		Produto produto = new Produto();
 		
-		produto.setId(4);
 		produto.setNome("Microfone rode videmic");
 		produto.setDescricao("A melhor qualidade de som");
 		produto.setPreco(new BigDecimal(5000));
 		
 		entityManager.getTransaction().begin();
-		entityManager.merge(produto);
+		Produto produtoSalvo = entityManager.merge(produto);
 		entityManager.getTransaction().commit();
 
 		// limpa o entity manager fazendo com que a a proxima operação de find ja no banco de dados 
 		// sem o "entityManager.clear()" ele pega o que esta na memoria
 		entityManager.clear();
 	
-		Produto produtoVerificacao = entityManager.find(Produto.class, produto.getId());
+		Produto produtoVerificacao = entityManager.find(Produto.class, produtoSalvo.getId());
 		Assert.assertNotNull(produtoVerificacao);
 	}
 	
@@ -109,19 +106,18 @@ public class OperacoesComTransacaoTest extends EntityManagerTest {
 	public void atualizarObjeto() {
 		Produto produto = new Produto();
 		
-		produto.setId(1);
 		produto.setNome("Kindle Paperwhite");
 		produto.setDescricao("Conheca o novo kindle");
 		produto.setPreco(new BigDecimal(599));
 		
 		
 		entityManager.getTransaction().begin();
-		entityManager.merge(produto);
+		Produto produtoSalvo = entityManager.merge(produto);
 		entityManager.getTransaction().commit();
 		
 		entityManager.clear();
 		
-		Produto produtoVerificacao = entityManager.find(Produto.class, produto.getId());
+		Produto produtoVerificacao = entityManager.find(Produto.class, produtoSalvo.getId());
 		Assert.assertNotNull(produtoVerificacao);
 		Assert.assertEquals(produto.getNome(), produtoVerificacao.getNome());
 	}
@@ -136,15 +132,14 @@ public class OperacoesComTransacaoTest extends EntityManagerTest {
 		
 		// entityManager.clear(); não é necessario na asserção para operação de remocão
 		
-		Produto produto2 = entityManager.find(Produto.class, 3);
-		Assert.assertNull(produto2);
+		Produto produtoVeriricacao = entityManager.find(Produto.class, produto.getId());
+		Assert.assertNull(produtoVeriricacao);
 	}
 	
 	@Test
 	public void inserindoOPrimeiroObjeto() {
 		Produto produto = new Produto();
 		
-		produto.setId(2);
 		produto.setNome("Camera canon");
 		produto.setDescricao("A melhor definicao para suas fotos");
 		produto.setPreco(new BigDecimal(5000));
