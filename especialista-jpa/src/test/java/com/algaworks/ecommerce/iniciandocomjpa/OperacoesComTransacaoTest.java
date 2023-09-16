@@ -11,6 +11,27 @@ import com.algaworks.ecommerce.model.Produto;
 public class OperacoesComTransacaoTest extends EntityManagerTest {
 	
 	@Test
+	public void inseriObjetoComMerge() {
+		Produto produto = new Produto();
+		
+		produto.setId(4);
+		produto.setNome("Microfone rode videmic");
+		produto.setDescricao("A melhor qualidade de som");
+		produto.setPreco(new BigDecimal(5000));
+		
+		entityManager.getTransaction().begin();
+		entityManager.merge(produto);
+		entityManager.getTransaction().commit();
+
+		// limpa o entity manager fazendo com que a a proxima operação de find ja no banco de dados 
+		// sem o "entityManager.clear()" ele pega o que esta na memoria
+		entityManager.clear();
+	
+		Produto produtoVerificacao = entityManager.find(Produto.class, produto.getId());
+		Assert.assertNotNull(produtoVerificacao);
+	}
+	
+	@Test
 	public void atualizarGerenciado() {
 		Produto produto = entityManager.find(Produto.class, 1);
 		
