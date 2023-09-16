@@ -1,7 +1,5 @@
 package com.algaworks.ecommerce.model;
 
-import java.math.BigDecimal;
-
 import javax.persistence.Entity;
 import javax.persistence.Id;
 
