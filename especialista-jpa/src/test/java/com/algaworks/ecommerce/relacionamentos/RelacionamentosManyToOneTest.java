@@ -30,8 +30,8 @@ public class RelacionamentosManyToOneTest extends EntityManagerTest {
 		
 		entityManager.clear();
 		
-		Pedido pedidoVErificacao = entityManager.find(Pedido.class, pedido.getId());
-		Assert.assertNotNull(pedidoVErificacao);
+		Pedido pedidoVerificacao = entityManager.find(Pedido.class, pedido.getId());
+		Assert.assertNotNull(pedidoVerificacao);
 	}
 	
 }
