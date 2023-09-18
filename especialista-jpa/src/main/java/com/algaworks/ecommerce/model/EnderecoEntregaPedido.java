@@ -17,5 +17,5 @@ public class EnderecoEntregaPedido {
 	private String bairro;
 	private String cidade;
 	private String estado;
-	
+
 }

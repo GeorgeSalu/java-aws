@@ -24,7 +24,7 @@ public class Cliente {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Integer id;
 	private String nome;
-	
+
 	@Enumerated(EnumType.STRING)
 	private SexoCliente sexo;
 
