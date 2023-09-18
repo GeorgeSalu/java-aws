@@ -28,6 +28,9 @@ public class Pedido {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Integer id;
+	
+	@Column(name = "cliente_id")
+	private Integer clienteId;
 
 	@Column(name = "data_pedido")
 	private LocalDateTime dataPedido;
