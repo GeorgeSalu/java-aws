@@ -8,9 +8,7 @@ import org.junit.Test;
 
 import com.algaworks.ecommerce.EntityManagerTest;
 import com.algaworks.ecommerce.model.Cliente;
-import com.algaworks.ecommerce.model.ItemPedido;
 import com.algaworks.ecommerce.model.Pedido;
-import com.algaworks.ecommerce.model.Produto;
 import com.algaworks.ecommerce.model.StatusPedido;
 
 public class RelacionamentosOneToManyTest extends EntityManagerTest {
