@@ -4,11 +4,11 @@ import javax.persistence.PrePersist;
 import javax.persistence.PreUpdate;
 
 import com.algaworks.ecommerce.model.Pedido;
-import com.algaworks.ecommerce.service.NOtaFiscalService;
+import com.algaworks.ecommerce.service.NotaFiscalService;
 
 public class GerarNotaFiscalListener {
 	
-	private NOtaFiscalService nOtaFiscalService = new NOtaFiscalService();
+	private NotaFiscalService nOtaFiscalService = new NotaFiscalService();
 
 	@PrePersist
 	@PreUpdate
