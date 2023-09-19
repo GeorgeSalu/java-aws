@@ -56,7 +56,7 @@ public class Pedido {
 	private StatusPedido status;
 	
 	@OneToOne(mappedBy = "pedido")
-	private PagamentoCartao pagamentoCartao;
+	private PagamentoCartao pagamento;
 
 	@Embedded
 	private EnderecoEntregaPedido enderecoEntrega;
