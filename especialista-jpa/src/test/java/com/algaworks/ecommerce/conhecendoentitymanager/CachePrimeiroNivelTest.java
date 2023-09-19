@@ -15,7 +15,7 @@ public class CachePrimeiroNivelTest extends EntityManagerTest {
 		
 		System.out.println("--------------------");
 		
-		// não ira azer uma nova consulta para essa nova busca
+		// não ira fazer uma nova consulta para essa nova busca
 		Produto produtoResgatado = entityManager.find(Produto.class, produto.getId());
 		System.out.println(produtoResgatado.getNome());
 	}
