@@ -15,6 +15,8 @@ import lombok.Setter;
 @AllArgsConstructor
 public class ItemPedidoId implements Serializable {
 
+	private static final long serialVersionUID = 4026679135829660184L;
+
 	@EqualsAndHashCode.Include
 	private Integer pedidoId;
 	
