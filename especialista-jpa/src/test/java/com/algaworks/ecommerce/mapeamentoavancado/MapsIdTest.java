@@ -18,7 +18,7 @@ import com.algaworks.ecommerce.model.StatusPedido;
 public class MapsIdTest extends EntityManagerTest {
 
 	@Test
-	public void inserirrPagamento() {
+	public void inserirPagamento() {
 		Pedido pedido = entityManager.find(Pedido.class, 1);
 
 		NotaFiscal notaFiscal = new NotaFiscal();
