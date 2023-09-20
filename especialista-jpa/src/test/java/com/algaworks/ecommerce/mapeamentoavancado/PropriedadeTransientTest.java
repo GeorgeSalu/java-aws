@@ -7,7 +7,7 @@ import com.algaworks.ecommerce.model.Cliente;
 
 import junit.framework.Assert;
 
-public class PropriedadeTransientTEst extends EntityManagerTest {
+public class PropriedadeTransientTest extends EntityManagerTest {
 
 	@Test
 	public void validarPrimeiroNome() {
