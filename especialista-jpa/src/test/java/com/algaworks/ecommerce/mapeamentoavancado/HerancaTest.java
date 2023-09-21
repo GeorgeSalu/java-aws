@@ -8,6 +8,9 @@ import org.junit.Test;
 import com.algaworks.ecommerce.EntityManagerTest;
 import com.algaworks.ecommerce.model.Cliente;
 import com.algaworks.ecommerce.model.Pagamento;
+import com.algaworks.ecommerce.model.PagamentoCartao;
+import com.algaworks.ecommerce.model.Pedido;
+import com.algaworks.ecommerce.model.StatusPagamento;
 
 public class HerancaTest extends EntityManagerTest {
 
@@ -33,6 +36,25 @@ public class HerancaTest extends EntityManagerTest {
                 .getResultList();
 
         Assert.assertFalse(pagamentos.isEmpty());
+    }
+    
+    @Test
+    public void incluirPagamentoPedido() {
+        Pedido pedido = entityManager.find(Pedido.class, 1);
+
+        PagamentoCartao pagamentoCartao = new PagamentoCartao();
+        pagamentoCartao.setPedido(pedido);
+        pagamentoCartao.setStatus(StatusPagamento.PROCESSANDO);
+        pagamentoCartao.setNumeroCartao("123");
+
+        entityManager.getTransaction().begin();
+        entityManager.persist(pagamentoCartao);
+        entityManager.getTransaction().commit();
+
+        entityManager.clear();
+
+        Pedido pedidoVerificacao = entityManager.find(Pedido.class, pedido.getId());
+        Assert.assertNotNull(pedidoVerificacao.getPagamento());
     }
 	
 }
