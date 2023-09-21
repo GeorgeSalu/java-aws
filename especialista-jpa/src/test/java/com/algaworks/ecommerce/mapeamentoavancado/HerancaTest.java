@@ -32,7 +32,7 @@ public class HerancaTest extends EntityManagerTest {
     @Test
     public void buscarPagamentos() {
         List<Pagamento> pagamentos = entityManager
-                .createQuery("select p from Pagamento p")
+                .createQuery("select p from PagamentoCartao p")
                 .getResultList();
 
         Assert.assertFalse(pagamentos.isEmpty());
