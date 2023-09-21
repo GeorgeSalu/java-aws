@@ -14,7 +14,7 @@ import com.algaworks.ecommerce.model.StatusPagamento;
 
 public class HerancaTest extends EntityManagerTest {
 
-	@Test
+    @Test
     public void salvarCliente() {
         Cliente cliente = new Cliente();
         cliente.setNome("Fernanda Morais");
@@ -28,16 +28,16 @@ public class HerancaTest extends EntityManagerTest {
         Cliente clienteVerificacao = entityManager.find(Cliente.class, cliente.getId());
         Assert.assertNotNull(clienteVerificacao.getId());
     }
-	
+
     @Test
     public void buscarPagamentos() {
         List<Pagamento> pagamentos = entityManager
-                .createQuery("select p from PagamentoCartao p")
+                .createQuery("select p from Pagamento p")
                 .getResultList();
 
         Assert.assertFalse(pagamentos.isEmpty());
     }
-    
+
     @Test
     public void incluirPagamentoPedido() {
         Pedido pedido = entityManager.find(Pedido.class, 1);

@@ -21,10 +21,10 @@ import lombok.Setter;
 
 @Getter
 @Setter
-@DiscriminatorColumn(name = "tipo_pagamento", discriminatorType = DiscriminatorType.STRING)
-@Inheritance(strategy = InheritanceType.JOINED)
+@DiscriminatorColumn(name = "tipo_pagamento",
+        discriminatorType = DiscriminatorType.STRING)
+@Inheritance(strategy = InheritanceType.SINGLE_TABLE)
 @Entity
-@EqualsAndHashCode
 @Table(name = "pagamento")
 public abstract class Pagamento  {
 
