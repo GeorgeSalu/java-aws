@@ -3,6 +3,7 @@ package com.algaworks.ecommerce.mapeamentoavancado;
 import java.util.Arrays;
 import java.util.Collections;
 
+import org.junit.Assert;
 import org.junit.Test;
 
 import com.algaworks.ecommerce.EntityManagerTest;
@@ -10,7 +11,6 @@ import com.algaworks.ecommerce.model.Atributo;
 import com.algaworks.ecommerce.model.Cliente;
 import com.algaworks.ecommerce.model.Produto;
 
-import junit.framework.Assert;
 
 public class ElementCollectionTest extends EntityManagerTest {
 
