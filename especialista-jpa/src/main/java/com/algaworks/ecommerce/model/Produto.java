@@ -44,7 +44,6 @@ public class Produto extends EntidadeBaseInteger {
 	@Column(columnDefinition = "varchar(275) not null default 'descricao'")
 	private String descricao;
 	
-	@Column(precision = 19, scale = 2)
 	private BigDecimal preco;
 	
 	@Lob
@@ -61,7 +60,7 @@ public class Produto extends EntidadeBaseInteger {
 	
 	@ElementCollection
 	@CollectionTable(name = "produto_tag", joinColumns = @JoinColumn(name = "produto_id"))
-	@Column(name = "tag")
+	@Column(name = "tag", length = 50, nullable = false)
 	private List<String> tags;
 	
 	@ElementCollection
