@@ -20,7 +20,7 @@ import lombok.Setter;
 @EqualsAndHashCode(onlyExplicitlyIncluded = true)
 @Entity
 @Table(name = "nota_fiscal")
-public class NotaFiscal {
+public class NotaFiscal  {
 
 	@EqualsAndHashCode.Include
 	@Id
