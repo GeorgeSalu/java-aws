@@ -15,6 +15,18 @@ import com.algaworks.ecommerce.model.Pedido;
 public class BasicoJPQLTest extends EntityManagerTest {
 
 	@Test
+	public void projetarOretorno() {
+		String jpql = "select id, nome from Produto";
+		
+		TypedQuery<Object[]> typedQuery = entityManager.createQuery(jpql, Object[].class);
+		List<Object[]> lista = typedQuery.getResultList();
+		
+		Assert.assertTrue(lista.get(0).length == 2);
+		
+		lista.forEach(arr -> System.out.println(arr[0]+", "+arr[1]));
+	}
+	
+	@Test
 	public void selecionarUmAtributoParaRetorno() {
 		String jpql = "select p.nome from Produto p";
 		
