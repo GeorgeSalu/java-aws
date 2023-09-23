@@ -10,7 +10,7 @@ import org.junit.Test;
 import com.algaworks.ecommerce.EntityManagerTest;
 import com.algaworks.ecommerce.model.Pedido;
 
-public class PathExpression extends EntityManagerTest {
+public class PathExpressionTest extends EntityManagerTest {
 
     @Test
     public void buscarPedidosComProdutoEspecifico() {
