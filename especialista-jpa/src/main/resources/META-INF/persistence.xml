@@ -11,6 +11,11 @@
             <property name="javax.persistence.jdbc.password" value="password" />
             <property name="javax.persistence.jdbc.driver" value="com.mysql.cj.jdbc.Driver" />
 
+			<!-- 
+				 none - desabilita a função 
+				 drop - manda para o banco somente os comandos de drop
+				 create - manda para o banco somente os camandos de create
+			 -->
             <property name="javax.persistence.schema-generation.database.action" value="drop-and-create"/>
             <property name="javax.persistence.sql-load-script-source" value="META-INF/banco-de-dados/dados-iniciais.sql"/>
 
