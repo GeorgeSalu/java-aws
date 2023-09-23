@@ -18,7 +18,7 @@ import com.algaworks.ecommerce.model.Produto;
 import com.algaworks.ecommerce.model.SexoCliente;
 import com.algaworks.ecommerce.model.StatusPedido;
 
-public class CascadeTypePersistTests extends EntityManagerTest {
+public class CascadeTypePersistTest extends EntityManagerTest {
 
     // @Test
     public void persistirProdutoComCategoria() {
