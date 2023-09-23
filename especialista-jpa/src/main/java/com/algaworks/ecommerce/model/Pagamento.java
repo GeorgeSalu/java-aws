@@ -6,6 +6,7 @@ import javax.persistence.DiscriminatorType;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
+import javax.persistence.ForeignKey;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -36,7 +37,8 @@ public abstract class Pagamento  {
 	
 	@MapsId
     @OneToOne(optional = false)
-    @JoinColumn(name = "pedido_id")
+    @JoinColumn(name = "pedido_id", nullable =  false,
+    			foreignKey = @ForeignKey(name = "fk_pagamento_pedido"))
     private Pedido pedido;
 
 	@Column(length = 30, nullable = false)
