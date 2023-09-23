@@ -40,7 +40,7 @@ public class CascadeTypePersistTests extends EntityManagerTest {
         entityManager.clear();
 
         Categoria categoriaVerificacao = entityManager.find(Categoria.class, categoria.getId());
-        Assert.assertNotNull(categoria);
+        Assert.assertNotNull(categoriaVerificacao);
     }
 	
     // @Test
