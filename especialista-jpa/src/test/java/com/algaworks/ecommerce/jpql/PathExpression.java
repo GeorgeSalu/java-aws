@@ -23,7 +23,7 @@ public class PathExpression extends EntityManagerTest {
     }
 	
 	@Test
-	public void usarPathExpresion() {
+	public void usarPathExpressions() {
 		
 		String jpql = "select p.cliente.nome from Pedido p";
 		
