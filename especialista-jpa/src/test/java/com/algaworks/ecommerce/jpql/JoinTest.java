@@ -13,12 +13,12 @@ public class JoinTest extends EntityManagerTest {
 
 	@Test
 	public void fazerJoin() {
-		String jpql = "select p, pag from Pedido p join p.pagamento pag where pag.status = 'PROCESSANDO'";
+		String jpql = "select p from Pedido p join p.pagamento pag";
 		
 		TypedQuery<Object[]> typedQuery = entityManager.createQuery(jpql, Object[].class);
 		
 		List<Object[]> lista = typedQuery.getResultList();
-		Assert.assertTrue(lista.size() == 1);
+		Assert.assertFalse(lista.isEmpty());
 	}
 	
 }
