@@ -11,21 +11,22 @@ import com.algaworks.ecommerce.model.SexoCliente;
 
 public class SecondaryTableTest extends EntityManagerTest {
 
-	@Test
-	public void salvarCliente() {
-		Cliente cliente = new Cliente();
-		cliente.setNome("Carlos Finotti");
-		cliente.setSexo(SexoCliente.MASCULINO);
-		cliente.setDataNascimento(LocalDate.of(1990, 1, 1));
+    @Test
+    public void salvarCliente() {
+        Cliente cliente = new Cliente();
+        cliente.setNome("Carlos Finotti");
+        cliente.setCpf("555");
+        cliente.setSexo(SexoCliente.MASCULINO);
+        cliente.setDataNascimento(LocalDate.of(1990, 1, 1));
 
-		entityManager.getTransaction().begin();
-		entityManager.persist(cliente);
-		entityManager.getTransaction().commit();
+        entityManager.getTransaction().begin();
+        entityManager.persist(cliente);
+        entityManager.getTransaction().commit();
 
-		entityManager.clear();
+        entityManager.clear();
 
-		Cliente clienteVerificacao = entityManager.find(Cliente.class, cliente.getId());
-		Assert.assertNotNull(clienteVerificacao.getSexo());
-	}
+        Cliente clienteVerificacao = entityManager.find(Cliente.class, cliente.getId());
+        Assert.assertNotNull(clienteVerificacao.getSexo());
+    }
 
 }

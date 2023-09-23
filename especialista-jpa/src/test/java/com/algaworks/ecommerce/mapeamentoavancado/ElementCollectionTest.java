@@ -14,49 +14,50 @@ import com.algaworks.ecommerce.model.Produto;
 
 public class ElementCollectionTest extends EntityManagerTest {
 
-	@Test
-	public void aplicarTags() {
-		entityManager.getTransaction().begin();
+    @Test
+    public void aplicarTags() {
+        entityManager.getTransaction().begin();
 
-		Produto produto = entityManager.find(Produto.class, 1);
-		produto.setTags(Arrays.asList("ebook", "livro-digital"));
+        Produto produto = entityManager.find(Produto.class, 1);
+        produto.setTags(Arrays.asList("ebook", "livro-digital"));
 
-		entityManager.getTransaction().commit();
+        entityManager.getTransaction().commit();
 
-		entityManager.clear();
+        entityManager.clear();
 
-		Produto produtoVerificacao = entityManager.find(Produto.class, produto.getId());
-		Assert.assertFalse(produtoVerificacao.getTags().isEmpty());
-	}
+        Produto produtoVerificacao = entityManager.find(Produto.class, produto.getId());
+        Assert.assertFalse(produtoVerificacao.getTags().isEmpty());
+    }
 
-	@Test
-	public void aplicarAtributos() {
-		entityManager.getTransaction().begin();
+    @Test
+    public void aplicarAtributos() {
+        entityManager.getTransaction().begin();
 
-		Produto produto = entityManager.find(Produto.class, 1);
-		produto.setAtributos(Arrays.asList(new Atributo("tela", "320x600")));
+        Produto produto = entityManager.find(Produto.class, 1);
+        produto.setAtributos(Arrays.asList(new Atributo("tela", "320x600")));
 
-		entityManager.getTransaction().commit();
+        entityManager.getTransaction().commit();
 
-		entityManager.clear();
+        entityManager.clear();
 
-		Produto produtoVerificacao = entityManager.find(Produto.class, produto.getId());
-		Assert.assertFalse(produtoVerificacao.getAtributos().isEmpty());
-	}
+        Produto produtoVerificacao = entityManager.find(Produto.class, produto.getId());
+        Assert.assertFalse(produtoVerificacao.getAtributos().isEmpty());
+    }
 
-	@Test
-	public void aplicarContato() {
-		entityManager.getTransaction().begin();
+    @Test
+    public void aplicarContato() {
+        entityManager.getTransaction().begin();
 
-		Cliente cliente = entityManager.find(Cliente.class, 1);
-		cliente.setContatos(Collections.singletonMap("email", "fernando@email.com"));
+        Cliente cliente = entityManager.find(Cliente.class, 1);
+        cliente.setContatos(Collections.singletonMap("email", "fernando@email.com"));
 
-		entityManager.getTransaction().commit();
+        entityManager.getTransaction().commit();
 
-		entityManager.clear();
+        entityManager.clear();
 
-		Cliente clienteVerificacao = entityManager.find(Cliente.class, cliente.getId());
-		Assert.assertEquals("fernando@email.com", clienteVerificacao.getContatos().get("email"));
-	}
+        Cliente clienteVerificacao = entityManager.find(Cliente.class, cliente.getId());
+        Assert.assertEquals(
+                "fernando@email.com", clienteVerificacao.getContatos().get("email"));
+    }
 
 }

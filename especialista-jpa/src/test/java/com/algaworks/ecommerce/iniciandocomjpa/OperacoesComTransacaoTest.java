@@ -1,6 +1,7 @@
 package com.algaworks.ecommerce.iniciandocomjpa;
 
 import java.math.BigDecimal;
+import java.time.LocalDateTime;
 
 import org.junit.Assert;
 import org.junit.Test;
@@ -9,159 +10,162 @@ import com.algaworks.ecommerce.EntityManagerTest;
 import com.algaworks.ecommerce.model.Produto;
 
 public class OperacoesComTransacaoTest extends EntityManagerTest {
-	
-	@Test
-	public void impedirOperacaoComBancoDeDados() {
-		Produto produto = entityManager.find(Produto.class, 1);
-		// detach desanexa um instancia do entityManager
-		entityManager.detach(produto);
-		
-		produto.setNome("Kindle Paperwhite 2 geracao");
-		
-		entityManager.getTransaction().begin();
-		entityManager.getTransaction().commit();
-		
-		entityManager.clear();
-		
-		Produto produtoVerificacao = entityManager.find(Produto.class, produto.getId());
-		Assert.assertEquals("Kindle", produtoVerificacao.getNome());
-	}
-	
-	@Test
-	public void mostrarDiferencaPersistMerge() {
-		Produto produto = new Produto();
-		
-		produto.setNome("Smartfone one plus");
-		produto.setDescricao("O procesador mas rapido");
-		produto.setPreco(new BigDecimal(5000));
-		
-		// o persist so roda comandos de insert 
-		entityManager.getTransaction().begin();
-		entityManager.persist(produto);
-		entityManager.getTransaction().commit();
 
-		// limpa o entity manager fazendo com que a a proxima operação de find ja no banco de dados 
-		// sem o "entityManager.clear()" ele pega o que esta na memoria
-		entityManager.clear();
-	
-		Produto produtoVerificacaoPersist = entityManager.find(Produto.class, produto.getId());
-		Assert.assertNotNull(produtoVerificacaoPersist);
-		
-		Produto produtoMerge = new Produto();
-		
-		produtoMerge.setNome("Notebook dell");
-		produtoMerge.setDescricao("O melhor da categoria");
-		produtoMerge.setPreco(new BigDecimal(2000));
-		
-		// o merge serge para atualizar e salvar 
-		entityManager.getTransaction().begin();
-		Produto produtoSalvo = entityManager.merge(produtoMerge);
-		entityManager.getTransaction().commit();
+    @Test
+    public void impedirOperacaoComBancoDeDados() {
+        Produto produto = entityManager.find(Produto.class, 1);
+        entityManager.detach(produto);
 
-		// limpa o entity manager fazendo com que a a proxima operação de find ja no banco de dados 
-		// sem o "entityManager.clear()" ele pega o que esta na memoria
-		entityManager.clear();
-	
-		Produto produtoVerificacaoMerge = entityManager.find(Produto.class, produtoSalvo.getId());
-		Assert.assertNotNull(produtoVerificacaoMerge);
-	}
-	
-	@Test
-	public void inseriObjetoComMerge() {
-		Produto produto = new Produto();
-		
-		produto.setNome("Microfone rode videmic");
-		produto.setDescricao("A melhor qualidade de som");
-		produto.setPreco(new BigDecimal(5000));
-		
-		entityManager.getTransaction().begin();
-		Produto produtoSalvo = entityManager.merge(produto);
-		entityManager.getTransaction().commit();
+        entityManager.getTransaction().begin();
+        produto.setNome("Kindle Paperwhite 2ª Geração");
+        entityManager.getTransaction().commit();
 
-		// limpa o entity manager fazendo com que a a proxima operação de find ja no banco de dados 
-		// sem o "entityManager.clear()" ele pega o que esta na memoria
-		entityManager.clear();
-	
-		Produto produtoVerificacao = entityManager.find(Produto.class, produtoSalvo.getId());
-		Assert.assertNotNull(produtoVerificacao);
-	}
-	
-	@Test
-	public void atualizarGerenciado() {
-		Produto produto = entityManager.find(Produto.class, 1);
-		
-		produto.setNome("Kindle Paperwhite 2 geracao");
-		
-		
-		entityManager.getTransaction().begin();
-		entityManager.getTransaction().commit();
-		
-		entityManager.clear();
-		
-		Produto produtoVerificacao = entityManager.find(Produto.class, produto.getId());
-		Assert.assertEquals(produto.getNome(), produtoVerificacao.getNome());
-	}
-	
-	@Test
-	public void atualizarObjeto() {
-		Produto produto = new Produto();
-		
-		produto.setNome("Kindle Paperwhite");
-		produto.setDescricao("Conheca o novo kindle");
-		produto.setPreco(new BigDecimal(599));
-		
-		
-		entityManager.getTransaction().begin();
-		Produto produtoSalvo = entityManager.merge(produto);
-		entityManager.getTransaction().commit();
-		
-		entityManager.clear();
-		
-		Produto produtoVerificacao = entityManager.find(Produto.class, produtoSalvo.getId());
-		Assert.assertNotNull(produtoVerificacao);
-		Assert.assertEquals(produto.getNome(), produtoVerificacao.getNome());
-	}
+        entityManager.clear();
 
-	@Test
-	public void removerObjeto() {
-		Produto produto = entityManager.find(Produto.class, 3);
-		
-		entityManager.getTransaction().begin();
-		entityManager.remove(produto);
-		entityManager.getTransaction().commit();
-		
-		// entityManager.clear(); não é necessario na asserção para operação de remocão
-		
-		Produto produtoVeriricacao = entityManager.find(Produto.class, produto.getId());
-		Assert.assertNull(produtoVeriricacao);
-	}
-	
-	@Test
-	public void inserindoOPrimeiroObjeto() {
-		Produto produto = new Produto();
-		
-		produto.setNome("Camera canon");
-		produto.setDescricao("A melhor definicao para suas fotos");
-		produto.setPreco(new BigDecimal(5000));
-		
-		entityManager.getTransaction().begin();
-		entityManager.persist(produto);
-		entityManager.getTransaction().commit();
+        Produto produtoVerificacao = entityManager.find(Produto.class, produto.getId());
+        Assert.assertEquals("Kindle", produtoVerificacao.getNome());
+    }
 
-		// limpa o entity manager fazendo com que a a proxima operação de find ja no banco de dados 
-		// sem o "entityManager.clear()" ele pega o que esta na memoria
-		entityManager.clear();
-	
-		Produto produtoVerificacao = entityManager.find(Produto.class, produto.getId());
-		Assert.assertNotNull(produtoVerificacao);
-	}
-	
-	
-	@Test
-	public void abrirEFecharUmaTransacao() {
-		entityManager.getTransaction().begin();
-		
-		entityManager.getTransaction().commit();
-	}
-	
+    @Test
+    public void mostrarDifencaPersistMerge() {
+        Produto produtoPersist = new Produto();
+
+//        produtoPersist.setId(5);
+        produtoPersist.setNome("Smartphone One Plus");
+        produtoPersist.setDescricao("O processador mais rápido.");
+        produtoPersist.setPreco(new BigDecimal(2000));
+        produtoPersist.setDataCriacao(LocalDateTime.now());
+
+        entityManager.getTransaction().begin();
+        entityManager.persist(produtoPersist);
+        produtoPersist.setNome("Smartphone Two Plus");
+        entityManager.getTransaction().commit();
+
+        entityManager.clear();
+
+        Produto produtoVerificacaoPersist = entityManager.find(Produto.class, produtoPersist.getId());
+        Assert.assertNotNull(produtoVerificacaoPersist);
+
+
+
+        Produto produtoMerge = new Produto();
+
+//        produtoMerge.setId(6);
+        produtoMerge.setNome("Notebook Dell");
+        produtoMerge.setDescricao("O melhor da categoria.");
+        produtoMerge.setPreco(new BigDecimal(2000));
+        produtoMerge.setDataCriacao(LocalDateTime.now());
+
+        entityManager.getTransaction().begin();
+        produtoMerge = entityManager.merge(produtoMerge);
+        produtoMerge.setNome("Notebook Dell 2");
+        entityManager.getTransaction().commit();
+
+        entityManager.clear();
+
+        Produto produtoVerificacaoMerge = entityManager.find(Produto.class, produtoMerge.getId());
+        Assert.assertNotNull(produtoVerificacaoMerge);
+    }
+
+    @Test
+    public void inserirObjetoComMerge() {
+        Produto produto = new Produto();
+
+//        produto.setId(4);
+        produto.setNome("Microfone Rode Videmic");
+        produto.setDescricao("A melhor qualidade de som.");
+        produto.setPreco(new BigDecimal(1000));
+        produto.setDataCriacao(LocalDateTime.now());
+
+        entityManager.getTransaction().begin();
+        Produto produtoSalvo = entityManager.merge(produto);
+        entityManager.getTransaction().commit();
+
+        entityManager.clear();
+
+        Produto produtoVerificacao = entityManager.find(Produto.class, produtoSalvo.getId());
+        Assert.assertNotNull(produtoVerificacao);
+    }
+
+    @Test
+    public void atualizarObjetoGerenciado() {
+        Produto produto = entityManager.find(Produto.class, 1);
+
+        entityManager.getTransaction().begin();
+        produto.setNome("Kindle Paperwhite 2ª Geração");
+        entityManager.getTransaction().commit();
+
+        entityManager.clear();
+
+        Produto produtoVerificacao = entityManager.find(Produto.class, produto.getId());
+        Assert.assertEquals("Kindle Paperwhite 2ª Geração", produtoVerificacao.getNome());
+    }
+
+    @Test
+    public void atualizarObjeto() {
+        Produto produto = new Produto();
+
+        produto.setId(1);
+        produto.setNome("Kindle Paperwhite");
+        produto.setDescricao("Conheça o novo Kindle.");
+        produto.setPreco(new BigDecimal(599));
+
+        entityManager.getTransaction().begin();
+        entityManager.merge(produto);
+        entityManager.getTransaction().commit();
+
+        entityManager.clear();
+
+        Produto produtoVerificacao = entityManager.find(Produto.class, produto.getId());
+        Assert.assertNotNull(produtoVerificacao);
+        Assert.assertEquals("Kindle Paperwhite", produtoVerificacao.getNome());
+    }
+
+    @Test
+    public void removerObjeto() {
+        Produto produto = entityManager.find(Produto.class, 3);
+
+        entityManager.getTransaction().begin();
+        entityManager.remove(produto);
+        entityManager.getTransaction().commit();
+
+//        entityManager.clear(); Não é necessário na asserção para operação de remoção.
+
+        Produto produtoVerificacao = entityManager.find(Produto.class, 3);
+        Assert.assertNull(produtoVerificacao);
+    }
+
+    @Test
+    public void inserirOPrimeiroObjeto() {
+        Produto produto = new Produto();
+
+//        produto.setId(2);
+        produto.setNome("Câmera Canon");
+        produto.setDescricao("A melhor definição para suas fotos.");
+        produto.setPreco(new BigDecimal(5000));
+        produto.setDataCriacao(LocalDateTime.now());
+
+        entityManager.getTransaction().begin();
+        entityManager.persist(produto);
+        entityManager.getTransaction().commit();
+
+        entityManager.clear();
+
+        Produto produtoVerificacao = entityManager.find(Produto.class, produto.getId());
+        Assert.assertNotNull(produtoVerificacao);
+    }
+
+    @Test
+    public void abrirEFecharATransacao() {
+//        Produto produto = new Produto(); // Somente para o método não mostrar erros.
+
+        entityManager.getTransaction().begin();
+
+//        entityManager.persist(produto);
+//        entityManager.merge(produto);
+//        entityManager.remove(produto);
+
+        entityManager.getTransaction().commit();
+    }
+
 }
