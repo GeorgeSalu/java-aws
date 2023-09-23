@@ -19,6 +19,9 @@ public class BasicoJPQLTest extends EntityManagerTest {
 		
 		Pedido pedido = typedQuery.getSingleResult();
 		Assert.assertNotNull(pedido);
+		
+//		List<Pedido> lista = typedQuery.getResultList();
+//		Assert.assertFalse(lista.isEmpty());
 	}
 	
 }
