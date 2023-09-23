@@ -11,6 +11,8 @@ import javax.persistence.Lob;
 import javax.persistence.MapsId;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
 
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
@@ -37,6 +39,7 @@ public class NotaFiscal  {
 	@Lob
 	private byte[] xml;
 
+	@Temporal(TemporalType.TIMESTAMP)
 	@Column(name = "data_emissao", nullable = false)
 	private Date dataEmissao;
 
