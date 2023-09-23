@@ -8,9 +8,20 @@ import org.junit.Assert;
 import org.junit.Test;
 
 import com.algaworks.ecommerce.EntityManagerTest;
+import com.algaworks.ecommerce.model.Pedido;
 
 public class PathExpression extends EntityManagerTest {
 
+    @Test
+    public void buscarPedidosComProdutoEspecifico() {
+        String jpql = "select p from Pedido p join p.itens i where i.id.produtoId = 1";
+
+        TypedQuery<Pedido> typedQuery = entityManager.createQuery(jpql, Pedido.class);
+
+        List<Pedido> lista = typedQuery.getResultList();
+        Assert.assertTrue(lista.size() == 2);
+    }
+	
 	@Test
 	public void usarPathExpresion() {
 		
