@@ -8,9 +8,23 @@ import org.junit.Assert;
 import org.junit.Test;
 
 import com.algaworks.ecommerce.EntityManagerTest;
+import com.algaworks.ecommerce.model.Pedido;
 
 public class FuncoesTest extends EntityManagerTest {
 
+	@Test
+	public void aplicarFuncaoNativa() {
+		String jpql = "select p from Pedido p where function('acima_media_faturamento', p.total) = 1 ";
+		
+		TypedQuery<Pedido> typedQuery = entityManager.createQuery(jpql, Pedido.class);
+		
+		
+		List<Pedido> lista = typedQuery.getResultList();
+		Assert.assertFalse(lista.isEmpty());
+		
+		lista.forEach(size -> System.out.println(size));
+	}
+	
 	@Test
 	public void aplicarFuncaoColecao() {
 		String jpql = "select size(p.itens) from Pedido p where size(p.itens) > 1";
