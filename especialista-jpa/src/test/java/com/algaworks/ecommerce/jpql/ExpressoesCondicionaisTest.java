@@ -11,8 +11,19 @@ import org.junit.Test;
 
 import com.algaworks.ecommerce.EntityManagerTest;
 import com.algaworks.ecommerce.model.Pedido;
+import com.algaworks.ecommerce.model.Produto;
 
 public class ExpressoesCondicionaisTest extends EntityManagerTest {
+	
+	@Test
+	public void usarExpressaDiferente() {
+		String jpql = "select p from Produto p where p.id <> 1";
+		
+		TypedQuery<Produto> typedQuery = entityManager.createQuery(jpql, Produto.class);
+		
+		List<Produto> lista = typedQuery.getResultList();
+		Assert.assertFalse(lista.isEmpty());
+	}
 	
 	@Test
 	public void usarBetween() {
