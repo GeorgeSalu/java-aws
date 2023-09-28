@@ -9,10 +9,11 @@ import org.junit.Test;
 
 import com.algaworks.ecommerce.EntityManagerTest;
 
-public class FuncoesStringsTest extends EntityManagerTest {
+public class FuncoesTest extends EntityManagerTest {
 
 	@Test
 	public void paginarResultados() {
+		// concat, length, locate, subsctring, lower, upper, trim
 		String jpql = "select c.nome, length(c.nome) from Categoria c";
 		
 		TypedQuery<Object[]> typedQuery = entityManager.createQuery(jpql, Object[].class);
