@@ -17,7 +17,9 @@ public class PaginacaoJPQLTest extends EntityManagerTest {
 		String jpql = "select c from Categoria c order by c.nome";
 		
 		TypedQuery<Categoria> typedQuery = entityManager.createQuery(jpql, Categoria.class);
-		typedQuery.setFirstResult(0);
+		
+		// first_result = max_results * (pagina - 1)
+		typedQuery.setFirstResult(2);
 		typedQuery.setMaxResults(2);		
 		
 		List<Categoria> lista = typedQuery.getResultList();
