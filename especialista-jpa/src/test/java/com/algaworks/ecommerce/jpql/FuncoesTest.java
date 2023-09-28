@@ -12,6 +12,19 @@ import com.algaworks.ecommerce.EntityManagerTest;
 public class FuncoesTest extends EntityManagerTest {
 
 	@Test
+	public void aplicarFuncaoNumero() {
+		String jpql = "select abs(-10), mod(3,2), sqrt(9) from Pedido";
+		
+		TypedQuery<Object[]> typedQuery = entityManager.createQuery(jpql, Object[].class);
+		
+		
+		List<Object[]> lista = typedQuery.getResultList();
+		Assert.assertFalse(lista.isEmpty());
+		
+		lista.forEach(arr -> System.out.println(arr[0] + " - "+ arr[1] + " - "+arr[2]));
+	}
+	
+	@Test
 	public void aplicarFuncoesData() {
 		//TimeZone.setDefault(TimeZone.getTimeZone("UTC"));
 		//year(p.dataCriacao), month(p.dataCricao), day(p.dataCricao)
