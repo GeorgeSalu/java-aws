@@ -16,7 +16,7 @@ import com.algaworks.ecommerce.model.Produto;
 public class ExpressoesCondicionaisTest extends EntityManagerTest {
 	
 	@Test
-	public void usarExpressaDiferente() {
+	public void usarExpressaoDiferente() {
 		String jpql = "select p from Produto p where p.id <> 1";
 		
 		TypedQuery<Produto> typedQuery = entityManager.createQuery(jpql, Produto.class);
