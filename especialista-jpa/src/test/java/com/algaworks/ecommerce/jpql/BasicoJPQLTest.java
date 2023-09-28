@@ -16,6 +16,16 @@ import com.algaworks.ecommerce.model.Pedido;
 public class BasicoJPQLTest extends EntityManagerTest {
 	
 	@Test
+	public void ordenarResultados() {
+		String jpql = "select c from Cliente c order by c.nome desc";
+		
+		TypedQuery<Cliente> typedQuery = entityManager.createQuery(jpql, Cliente.class);
+		List<Cliente> lista = typedQuery.getResultList();
+		
+		Assert.assertFalse(lista.isEmpty());
+	}
+	
+	@Test
 	public void projetarNoDto() {
 		String jpql = "select new com.algaworks.ecommerce.dto.ProdutoDto( id, nome ) from Produto";
 		
