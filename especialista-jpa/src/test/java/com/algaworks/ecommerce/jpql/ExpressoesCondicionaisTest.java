@@ -16,6 +16,24 @@ import com.algaworks.ecommerce.model.Produto;
 public class ExpressoesCondicionaisTest extends EntityManagerTest {
 	
 	@Test
+	public void usarExpressaoCase() {
+		String jpql = "select p.id, "
+				+ " case p.status "
+				+ "      when 'PAGO' then 'Esta pago' "
+				+ "      when 'CANCELADO' then 'Foi cancelado' "
+				+ "      else 'Esta aguadando' "
+				+ " end "
+				+ " from Pedido p ";
+		
+		TypedQuery<Object[]> typedQuery = entityManager.createQuery(jpql, Object[].class);
+		
+		List<Object[]> lista = typedQuery.getResultList();
+		Assert.assertFalse(lista.isEmpty());
+		
+		lista.forEach(arr -> System.out.println(arr[0] + " , "+arr[1]));
+	}
+	
+	@Test
 	public void usarExpressaoDiferente() {
 		String jpql = "select p from Produto p where p.id <> 1";
 		
