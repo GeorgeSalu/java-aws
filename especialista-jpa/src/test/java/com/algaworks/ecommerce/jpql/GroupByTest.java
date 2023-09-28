@@ -10,6 +10,22 @@ import org.junit.Test;
 import com.algaworks.ecommerce.EntityManagerTest;
 
 public class GroupByTest extends EntityManagerTest {
+	
+	@Test
+	public void agruparArgumentosComHaving() {
+		
+		String jpql = "select cat.nome, sum(ip.precoProduto) from ItemPedido ip "
+				+ " join ip.produto pro join pro.categorias cat "
+				+ " group by cat.id "
+				+ " having sum(ip.precoProduto) > 100 ";
+		
+		TypedQuery<Object[]> typedQuery = entityManager.createQuery(jpql, Object[].class);
+		
+		List<Object[]> lista = typedQuery.getResultList();
+		
+		Assert.assertFalse(lista.isEmpty());
+		
+	}
 
     @Test
     public void agruparEFiltrarResultado() {
