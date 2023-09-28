@@ -19,7 +19,8 @@ public class PaginacaoJPQLTest extends EntityManagerTest {
 		TypedQuery<Categoria> typedQuery = entityManager.createQuery(jpql, Categoria.class);
 		
 		// first_result = max_results * (pagina - 1)
-		typedQuery.setFirstResult(2);
+		//typedQuery.setFirstResult(2);
+		// limita a quantidade de resgistros retornados
 		typedQuery.setMaxResults(2);		
 		
 		List<Categoria> lista = typedQuery.getResultList();
