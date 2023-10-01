@@ -3,6 +3,7 @@ package com.algaworks.ecommerce.criteira;
 import java.math.BigDecimal;
 import java.util.List;
 
+import javax.persistence.Tuple;
 import javax.persistence.TypedQuery;
 import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
@@ -16,6 +17,22 @@ import com.algaworks.ecommerce.model.Pedido;
 import com.algaworks.ecommerce.model.Produto;
 
 public class BasicoCriteiraTest extends EntityManagerTest {
+	
+	@Test
+	public void projetarOResultadoTuple() {
+		CriteriaBuilder criteriaBuilder = entityManager.getCriteriaBuilder();
+		CriteriaQuery<Tuple> criteriaQuery = criteriaBuilder.createTupleQuery();
+		Root<Produto> root = criteriaQuery.from(Produto.class);
+		
+		criteriaQuery.select(criteriaBuilder
+				.tuple(root.get("id").alias("id"), root.get("nome").alias("nome")));
+		
+		TypedQuery<Tuple> typedQuery = entityManager.createQuery(criteriaQuery);
+		List<Tuple> lista = typedQuery.getResultList();
+		Assert.assertFalse(lista.isEmpty());
+		
+		lista.forEach(t -> System.out.println("id: "+ t.get("id") + ", nome: "+t.get("nome")));
+	}
 	
 	@Test
 	public void projetarOResultado() {
