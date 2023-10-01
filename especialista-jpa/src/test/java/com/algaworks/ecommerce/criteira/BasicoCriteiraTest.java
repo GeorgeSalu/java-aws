@@ -18,6 +18,21 @@ import com.algaworks.ecommerce.model.Produto;
 public class BasicoCriteiraTest extends EntityManagerTest {
 	
 	@Test
+	public void projetarOResultado() {
+		CriteriaBuilder criteriaBuilder = entityManager.getCriteriaBuilder();
+		CriteriaQuery<Object[]> criteriaQuery = criteriaBuilder.createQuery(Object[].class);
+		Root<Produto> root = criteriaQuery.from(Produto.class);
+		
+		criteriaQuery.multiselect(root.get("id"), root.get("nome"));
+		
+		TypedQuery<Object[]> typedQuery = entityManager.createQuery(criteriaQuery);
+		List<Object[]> lista = typedQuery.getResultList();
+		Assert.assertFalse(lista.isEmpty());
+		
+		lista.forEach(arr -> System.out.println("id: "+ arr[0] + ", nome: "+arr[1]));
+	}
+	
+	@Test
 	public void retornarTodosOsProdutosExercicio() {
 		CriteriaBuilder criteriaBuilder = entityManager.getCriteriaBuilder();
 		CriteriaQuery<Produto> criteriaQuery = criteriaBuilder.createQuery(Produto.class);
