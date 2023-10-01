@@ -13,10 +13,26 @@ import org.junit.Assert;
 import org.junit.Test;
 
 import com.algaworks.ecommerce.EntityManagerTest;
+import com.algaworks.ecommerce.dto.ProdutoDto;
 import com.algaworks.ecommerce.model.Pedido;
 import com.algaworks.ecommerce.model.Produto;
 
 public class BasicoCriteiraTest extends EntityManagerTest {
+	
+	@Test
+	public void projetarOResultadoDto() {
+		CriteriaBuilder criteriaBuilder = entityManager.getCriteriaBuilder();
+		CriteriaQuery<ProdutoDto> criteriaQuery = criteriaBuilder.createQuery(ProdutoDto.class);
+		Root<Produto> root = criteriaQuery.from(Produto.class);
+		
+		criteriaQuery.select(criteriaBuilder.construct(ProdutoDto.class, root.get("id"), root.get("nome")));
+		
+		TypedQuery<ProdutoDto> typedQuery = entityManager.createQuery(criteriaQuery);
+		List<ProdutoDto> lista = typedQuery.getResultList();
+		Assert.assertFalse(lista.isEmpty());
+		
+		lista.forEach(dto -> System.out.println("id: "+ dto.getId() + ", nome: "+dto.getNome()));
+	}
 	
 	@Test
 	public void projetarOResultadoTuple() {
