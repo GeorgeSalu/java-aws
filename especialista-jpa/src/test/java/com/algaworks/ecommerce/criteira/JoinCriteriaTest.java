@@ -17,19 +17,24 @@ import com.algaworks.ecommerce.model.Pedido;
 
 public class JoinCriteriaTest extends EntityManagerTest {
 
-	@Test
-	public void fazerJoin() {
-		CriteriaBuilder criteriaBuilder = entityManager.getCriteriaBuilder();
-		CriteriaQuery<Pagamento> criteriaQuery = criteriaBuilder.createQuery(Pagamento.class);
-		Root<Pedido> root = criteriaQuery.from(Pedido.class);
-		Join<Pedido, Pagamento> joinPagamento = root.join("pagamento");
-		
-		criteriaQuery.select(joinPagamento);
-		
-		TypedQuery<Pagamento> typedQuery = entityManager.createQuery(criteriaQuery);
-		List<Pagamento> lista = typedQuery.getResultList();
-		Assert.assertFalse(lista.isEmpty());
-		
-	}
+    @Test
+    public void fazerJoin() {
+        CriteriaBuilder criteriaBuilder = entityManager.getCriteriaBuilder();
+        CriteriaQuery<Pedido> criteriaQuery = criteriaBuilder.createQuery(Pedido.class);
+        Root<Pedido> root = criteriaQuery.from(Pedido.class);
+        Join<Pedido, Pagamento> joinPagamento = root.join("pagamento");
+//        Join<Pedido, ItemPedido> joinItens = root.join("itens");
+//        Join<ItemPedido, Produto> joinItemProduto = joinItens.join("produto");
+
+        criteriaQuery.select(root);
+
+//        criteriaQuery.select(joinPagamento);
+//        criteriaQuery.where(criteriaBuilder
+//                .equal(joinPagamento.get("status"), StatusPagamento.PROCESSANDO));
+
+        TypedQuery<Pedido> typedQuery = entityManager.createQuery(criteriaQuery);
+        List<Pedido> lista = typedQuery.getResultList();
+        Assert.assertTrue(lista.size() == 4);
+    }
 	
 }
