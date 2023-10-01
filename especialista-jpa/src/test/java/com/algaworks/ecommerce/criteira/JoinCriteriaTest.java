@@ -6,6 +6,7 @@ import javax.persistence.TypedQuery;
 import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Join;
+import javax.persistence.criteria.JoinType;
 import javax.persistence.criteria.Root;
 
 import org.junit.Assert;
@@ -18,6 +19,20 @@ import com.algaworks.ecommerce.model.StatusPagamento;
 
 public class JoinCriteriaTest extends EntityManagerTest {
 
+	@Test
+	public void fazerLeftOuterJoin() {
+		CriteriaBuilder criteriaBuilder = entityManager.getCriteriaBuilder();
+		CriteriaQuery<Pedido> criteriaQuery = criteriaBuilder.createQuery(Pedido.class);
+		Root<Pedido> root = criteriaQuery.from(Pedido.class);
+		Join<Pedido, Pagamento> joinPagamento = root.join("pagamento", JoinType.LEFT);
+		
+		criteriaQuery.select(root);
+
+		TypedQuery<Pedido> typedQuery = entityManager.createQuery(criteriaQuery);
+		List<Pedido> lista = typedQuery.getResultList();
+		Assert.assertTrue(lista.size() == 5);
+	}
+	
 	@Test
 	public void fazerJoinComOn() {
 		CriteriaBuilder criteriaBuilder = entityManager.getCriteriaBuilder();
