@@ -22,26 +22,46 @@ import com.algaworks.ecommerce.model.Produto_;
 
 public class ExpressoesCondicionaisCriteriaTest extends EntityManagerTest {
 
-    @Test
-    public void usarExpressaoDiferente() {
-        CriteriaBuilder criteriaBuilder = entityManager.getCriteriaBuilder();
-        CriteriaQuery<Pedido> criteriaQuery = criteriaBuilder.createQuery(Pedido.class);
-        Root<Pedido> root = criteriaQuery.from(Pedido.class);
+	@Test
+	public void usarExpressaoCase() {
+		CriteriaBuilder criteriaBuilder = entityManager.getCriteriaBuilder();
+		CriteriaQuery<Object[]> criteriaQuery = criteriaBuilder.createQuery(Object[].class);
+		Root<Pedido> root = criteriaQuery.from(Pedido.class);
 
-        criteriaQuery.select(root);
+		criteriaQuery.multiselect(root.get(Pedido_.id),
+//	                criteriaBuilder.selectCase(root.get(Pedido_.STATUS))
+//	                        .when(StatusPedido.PAGO.toString(), "Foi pago.")
+//	                        .when(StatusPedido.AGUARDANDO.toString(), "Está aguardando.")
+//	                        .otherwise(root.get(Pedido_.status))
+				criteriaBuilder.selectCase(root.get(Pedido_.pagamento).type().as(String.class))
+						.when("boleto", "Foi pago com boleto.").when("cartao", "Foi pago com cartão")
+						.otherwise("Não identificado"));
 
-        criteriaQuery.where(criteriaBuilder.notEqual(
-                root.get(Pedido_.total), new BigDecimal(499)));
+		TypedQuery<Object[]> typedQuery = entityManager.createQuery(criteriaQuery);
 
-        TypedQuery<Pedido> typedQuery = entityManager.createQuery(criteriaQuery);
-        List<Pedido> lista = typedQuery.getResultList();
-        Assert.assertFalse(lista.isEmpty());
+		List<Object[]> lista = typedQuery.getResultList();
+		Assert.assertFalse(lista.isEmpty());
 
-        lista.forEach(p -> System.out.println(
-                "ID: " + p.getId() + ", Total: " + p.getTotal()));
-    }
+		lista.forEach(arr -> System.out.println(arr[0] + ", " + arr[1]));
+	}
 
-	
+	@Test
+	public void usarExpressaoDiferente() {
+		CriteriaBuilder criteriaBuilder = entityManager.getCriteriaBuilder();
+		CriteriaQuery<Pedido> criteriaQuery = criteriaBuilder.createQuery(Pedido.class);
+		Root<Pedido> root = criteriaQuery.from(Pedido.class);
+
+		criteriaQuery.select(root);
+
+		criteriaQuery.where(criteriaBuilder.notEqual(root.get(Pedido_.total), new BigDecimal(499)));
+
+		TypedQuery<Pedido> typedQuery = entityManager.createQuery(criteriaQuery);
+		List<Pedido> lista = typedQuery.getResultList();
+		Assert.assertFalse(lista.isEmpty());
+
+		lista.forEach(p -> System.out.println("ID: " + p.getId() + ", Total: " + p.getTotal()));
+	}
+
 	@Test
 	public void usarBetween() {
 		CriteriaBuilder criteriaBuilder = entityManager.getCriteriaBuilder();
