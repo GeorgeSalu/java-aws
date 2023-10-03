@@ -13,6 +13,7 @@ public class ConsultaNativaTest extends EntityManagerTest {
 
 	@Test
 	public void executarSQLRetornoEntidade() {
+		// a consulta deve retornar todos os campos mapeandos na entidade
 		String sql = "select id, nome, descricao, data_criacao, data_ultima_atualizacao, preco, foto from produto";
 		
 		Query query = entityManager.createNativeQuery(sql, Produto.class);
