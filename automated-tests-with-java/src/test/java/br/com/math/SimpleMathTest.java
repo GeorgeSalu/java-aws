@@ -8,10 +8,13 @@ public class SimpleMathTest {
 	@Test
 	void testSum() {
 		SimpleMath math = new SimpleMath();
-		Double actual = math.sum(6.2D, 2D);
+		double firstNumber = 6.2D;
+		double secondNumber = 2D;
+		
+		Double actual = math.sum(firstNumber, secondNumber);
 		double expected = 8.2D;
 
-		assertEquals(expected, actual, "6.2+2 did not produce 8.2");
+		assertEquals(expected, actual, () -> firstNumber + " + "+secondNumber+" did not producer "+expected+"!");
 		assertNotEquals(9.2, actual);
 		assertNotNull(actual);
 	}
