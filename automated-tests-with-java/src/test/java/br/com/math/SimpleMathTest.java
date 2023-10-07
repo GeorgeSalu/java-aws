@@ -1,12 +1,16 @@
 package br.com.math;
 
 import static org.junit.jupiter.api.Assertions.*;
+
+import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
+@DisplayName("Test Math Operations in SimpleMath Class")
 public class SimpleMathTest {
 
 	// test[System Under test]_[Condition or State Change]_[Expected result]
 	@Test
+	@DisplayName("Test 6.2 + 2 = 8.2")
 	void testSum_when_SixDotToenIsAddedByTwo_ShouldReturnEightDotTwo() {
 		SimpleMath math = new SimpleMath();
 		double firstNumber = 6.2D;
@@ -20,6 +24,7 @@ public class SimpleMathTest {
 	}
 
 	@Test
+	@DisplayName("Test 6.2 - 2 = 4.2")
 	void testSubtraction() {
 		SimpleMath math = new SimpleMath();
 		double firstNumber = 6.2D;
@@ -33,6 +38,7 @@ public class SimpleMathTest {
 	}
 
 	@Test
+	@DisplayName("Test 6.2 - 2 = 12.4")
 	void testMultiplication() {
 		SimpleMath math = new SimpleMath();
 		double firstNumber = 6.2D;
@@ -46,6 +52,7 @@ public class SimpleMathTest {
 	}
 
 	@Test
+	@DisplayName("Test 6.2 - 2 = 3.1")
 	void testDivision() {
 		SimpleMath math = new SimpleMath();
 		double firstNumber = 6.2D;
@@ -65,6 +72,7 @@ public class SimpleMathTest {
 	}
 
 	@Test
+	@DisplayName("Test 6.2 mean 2 = 4.1")
 	void testMean() {
 		SimpleMath math = new SimpleMath();
 		double firstNumber = 6.2D;
@@ -78,6 +86,7 @@ public class SimpleMathTest {
 	}
 
 	@Test
+	@DisplayName("Test 81 squareRoot = 9")
 	void testSqaureRoot() {
 		SimpleMath math = new SimpleMath();
 		double number = 81D;
