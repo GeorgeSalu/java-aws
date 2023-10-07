@@ -5,9 +5,10 @@ import java.util.List;
 
 import br.com.service.CourseService;
 
-// System ()Method Under Test
+// CourseBusiness = SUT - System (Method) Under Test
 public class CourseBusiness {
 
+	// CourseService is a Dependency
 	private CourseService service;
 
 	public CourseBusiness(CourseService service) {
