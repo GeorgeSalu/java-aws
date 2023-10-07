@@ -30,7 +30,7 @@ public class SimpleMathTest {
 	}
 	
 	@Test
-	void testmultiplication() {
+	void testMultiplication() {
 		SimpleMath math = new SimpleMath();
 		double firstNumber = 6.2D;
 		double secondNumber = 2D;
