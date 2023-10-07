@@ -94,10 +94,22 @@ public class SimpleMathTest {
 	}
 
 	// test[System Under test]_[Condition or State Change]_[Expected result]
-	@Disabled("TODO: We need still work on it")
+	//@Disabled("TODO: We need still work on it")
 	@Test
 	void testDivision_When_FirstNumberIsDividedByZero_ShouldThrowAritmeticException() {
-		fail();
+		
+		// Given
+		double firstNumber = 6.2D;
+		double secondNumber = 0D;
+		
+		var expectedMessage = "Impossible to divide by zero";
+
+		ArithmeticException actual = assertThrows(ArithmeticException.class, () -> {	
+			// when & then
+			math.division(firstNumber, secondNumber);
+		});
+		
+		assertEquals(expectedMessage, actual.getMessage());
 	}
 
 	@Test
