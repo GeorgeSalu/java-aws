@@ -62,7 +62,7 @@ public class SimpleMathTest {
 		Double actual = math.mean(firstNumber, secondNumber);
 		double expected = 4.1D;
 
-		assertEquals(expected, actual, () -> firstNumber + " + "+secondNumber+" did not producer "+expected+"!");
+		assertEquals(expected, actual, () -> "("+firstNumber + " + "+secondNumber+ ")/2"+ " did not producer "+expected+"!");
 	}
 	
 	@Test
