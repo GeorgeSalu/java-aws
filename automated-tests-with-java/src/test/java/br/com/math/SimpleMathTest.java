@@ -6,7 +6,7 @@ import org.junit.jupiter.api.Test;
 public class SimpleMathTest {
 
 	@Test
-	void testSum() {
+	void testSum_when_SixDotToenIsAddedByTwo_ShouldReturnEightDotTwo() {
 		SimpleMath math = new SimpleMath();
 		double firstNumber = 6.2D;
 		double secondNumber = 2D;
@@ -55,6 +55,11 @@ public class SimpleMathTest {
 
 		assertEquals(expected, actual,
 				() -> firstNumber + " + " + secondNumber + " did not producer " + expected + "!");
+	}
+	
+	@Test
+	void testDivision_When_FirstNumberIsDividedByZero_ShouldThrowAritmeticException() {
+		fail();
 	}
 
 	@Test
