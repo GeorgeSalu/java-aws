@@ -2,6 +2,7 @@ package br.com.math;
 
 import static org.junit.jupiter.api.Assertions.*;
 
+import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
@@ -70,6 +71,7 @@ public class SimpleMathTest {
 	}
 
 	// test[System Under test]_[Condition or State Change]_[Expected result]
+	@Disabled("TODO: We need still work on it")
 	@Test
 	void testDivision_When_FirstNumberIsDividedByZero_ShouldThrowAritmeticException() {
 		fail();
