@@ -30,4 +30,10 @@ public class CourseServiceStub implements CourseService {
 		return null;
 	}
 
+	@Override
+	public void deleteCourse(String course) {
+		// TODO Auto-generated method stub
+		
+	}
+
 }

@@ -3,10 +3,13 @@ package br.com.business;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.mockito.Mockito.*;
 
+import static org.mockito.BDDMockito.*;
+
 import java.util.Arrays;
 import java.util.List;
 
 import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
 import br.com.service.CourseService;
@@ -63,4 +66,33 @@ class CourseBusinessMockBDDTest {
 		assertEquals(0, filteredCourses.size());
 	}
 	
+	@DisplayName("Delete courses not related to Spring Usinng Mockito sloud call method")
+	@Test
+	void testDeleteCoursesNotRelatedToSpring_usingMockitoVerify_Should_CallMethod_deleteCourse() {
+		// Give / Arrange
+		given(mockService.retrieveCourses("Leandro")).willReturn(courses);
+		
+		// When / Act
+		business.deleteCourseNotRelatedToSpring("Leandro");
+		
+		// Then / Assert
+		verify(mockService, atLeast(1)).deleteCourse("Agile Desmistificado com Scrum, XP, Kanban e Trello");
+		verify(mockService, times(1)).deleteCourse("Agile Desmistificado com Scrum, XP, Kanban e Trello");
+		verify(mockService).deleteCourse("Agile Desmistificado com Scrum, XP, Kanban e Trello");
+		verify(mockService, never()).deleteCourse("REST API's RESTFul do 0 à AWS com Spring Boot 3 Java e Docker");
+	}
+	
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
