@@ -2,10 +2,6 @@ package br.com.business;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.mockito.Mockito.*;
-import static org.mockito.BDDMockito.*;
-
-import static org.hamcrest.MatcherAssert.assertThat;
-import static org.hamcrest.Matchers.*;
 
 import java.util.Arrays;
 import java.util.List;
@@ -15,7 +11,7 @@ import org.junit.jupiter.api.Test;
 
 import br.com.service.CourseService;
 
-class CourseBusinessStubTest {
+class CourseBusinessMockBDDTest {
 
 	CourseService mockService;
 	CourseBusiness business;
@@ -45,7 +41,7 @@ class CourseBusinessStubTest {
 	void testCoursesRelatedToSpring_When_UsingAMock() {
 		// Given / Arrange
 		
-		given(mockService.retrieveCourses("Leandro")).willReturn(courses);
+		when(mockService.retrieveCourses("Leandro")).thenReturn(courses);
 		
 		
 		// When / Act
@@ -53,7 +49,7 @@ class CourseBusinessStubTest {
 		
 		
 		// Then / Assert
-		assertThat(filteredCourses.size(), is(4));
+		assertEquals(4, filteredCourses.size());
 	}
 
 	@Test
