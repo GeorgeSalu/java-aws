@@ -4,6 +4,12 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.mockito.Mockito.*;
 
+
+import static org.mockito.Mockito.*;
+import static org.mockito.BDDMockito.*;
+
+import static org.hamcrest.MatcherAssert.assertThat;
+import static org.hamcrest.Matchers.*;
 import java.util.List;
 
 import org.junit.jupiter.api.Test;
@@ -14,35 +20,35 @@ public class ListTest {
 	void testMockingList_When_SizeIsCalled_ShouldReturn10() {
 		// Given / Arrange
 		List<?> list = mock(List.class);
-		when(list.size()).thenReturn(10);
+		given(list.size()).willReturn(10);
 		
 		// When / Act && Then / Assert
 		
-		assertEquals(10, list.size());
+		assertThat(list.size(), is(10));
 	}
 	
 	@Test
 	void testMockingList_When_SizeIsCalled_ShouldReturnMultiplesValues() {
 		// Given / Arrange
 		List<?> list = mock(List.class);
-		when(list.size()).thenReturn(10).thenReturn(20);
+		given(list.size()).willReturn(10).willReturn(20);
 		
 		// When / Act && Then / Assert
 		
-		assertEquals(10, list.size());
-		assertEquals(20, list.size());
-		assertEquals(20, list.size());
+		assertThat(list.size(), is(10));
+		assertThat(list.size(), is(20));
+		assertThat(list.size(), is(20));
 	}
 	
 	@Test
 	void testMockingList_When_SizeIsCalled_ShouldReturnGeorge() {
 		// Given / Arrange
 		var list = mock(List.class);
-		when(list.get(0)).thenReturn("George");
+		given(list.get(0)).willReturn("George");
 		
 		// When / Act && Then / Assert
 		
-		assertEquals("George", list.get(0));
+		assertThat(list.get(0), is("George"));
 	}
 	
 	@Test
@@ -52,11 +58,11 @@ public class ListTest {
 		
 		// if uou are using argument matchers, all arguments
 		// have to be provided by matchers
-		when(list.get(anyInt())).thenReturn("George");
+		given(list.get(anyInt())).willReturn("George");
 		
 		// When / Act && Then / Assert
 		
-		assertEquals("George", list.get(anyInt()));
+		assertThat(list.get(anyInt()), is("George"));
 	}
 	
 	@Test
@@ -66,7 +72,7 @@ public class ListTest {
 		
 		// if uou are using argument matchers, all arguments
 		// have to be provided by matchers
-		when(list.get(anyInt())).thenThrow(new RuntimeException("Foo Bar"));
+		given(list.get(anyInt())).willThrow(new RuntimeException("Foo Bar"));
 		
 		// When / Act && Then / Assert
 		assertThrows(RuntimeException.class, () -> {
