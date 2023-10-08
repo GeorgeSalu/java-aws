@@ -85,6 +85,21 @@ class CourseBusinessMockBDDTest {
 		verify(mockService, never()).deleteCourse("REST API's RESTFul do 0 à AWS com Spring Boot 3 Java e Docker");
 	}
 	
+	@DisplayName("Delete courses not related to Spring Usinng Mockito sloud call method V2")
+	@Test
+	void testDeleteCoursesNotRelatedToSpring_usingMockitoVerify_Should_CallMethod_deleteCourseV2() {
+		// Give / Arrange
+		given(mockService.retrieveCourses("Leandro")).willReturn(courses);
+		
+		// When / Act
+		business.deleteCourseNotRelatedToSpring("Leandro");
+		
+		// Then / Assert
+		then(mockService).should().deleteCourse("Agile Desmistificado com Scrum, XP, Kanban e Trello");
+		then(mockService).should().deleteCourse("Agile Desmistificado com Scrum, XP, Kanban e Trello");
+		then(mockService).should(never()).deleteCourse("REST API's RESTFul do 0 à AWS com Spring Boot 3 Java e Docker");
+	}
+	
 }
 
 
