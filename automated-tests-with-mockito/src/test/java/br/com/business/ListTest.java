@@ -48,6 +48,9 @@ public class ListTest {
 	void testMockingList_When_GetISCalledWithArgumentMatcher_ShouldReturnGeorge() {
 		// Given / Arrange
 		var list = mock(List.class);
+		
+		// if uou are using argument matchers, all arguments
+		// have to be provided by matchers
 		when(list.get(anyInt())).thenReturn("George");
 		
 		// When / Act && Then / Assert
