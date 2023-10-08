@@ -76,9 +76,12 @@ class CourseBusinessMockBDDTest {
 		business.deleteCourseNotRelatedToSpring("Leandro");
 		
 		// Then / Assert
-		verify(mockService, atLeast(1)).deleteCourse("Agile Desmistificado com Scrum, XP, Kanban e Trello");
+		// similar ao times(1)
+		verify(mockService, atLeastOnce()).deleteCourse("Agile Desmistificado com Scrum, XP, Kanban e Trello");
+		// times() = chama uma numero determinado de vezes que é passado como paramentro
 		verify(mockService, times(1)).deleteCourse("Agile Desmistificado com Scrum, XP, Kanban e Trello");
 		verify(mockService).deleteCourse("Agile Desmistificado com Scrum, XP, Kanban e Trello");
+		// never() = nunca foi chamado
 		verify(mockService, never()).deleteCourse("REST API's RESTFul do 0 à AWS com Spring Boot 3 Java e Docker");
 	}
 	
