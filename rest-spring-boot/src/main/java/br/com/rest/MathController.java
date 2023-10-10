@@ -5,7 +5,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
-import br.com.rest.exceptions.UnsupportedMathoperationsException;
+import br.com.rest.exceptions.UnsupportedMathOperationException;
 
 @RestController
 public class MathController {
@@ -15,7 +15,7 @@ public class MathController {
 					  @PathVariable(value = "numberTwo") String numberTwo) throws Exception {
 		
 		if(!isNumeric(numberOne) || !isNumeric(numberTwo)) {
-			throw new UnsupportedMathoperationsException("Please set a numeric value");
+			throw new UnsupportedMathOperationException("Please set a numeric value");
 		}
 		
 		return convertToDouble(numberOne) + convertToDouble(numberTwo);
