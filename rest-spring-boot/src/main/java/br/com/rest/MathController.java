@@ -12,7 +12,7 @@ public class MathController {
 	public Double sum(@PathVariable(value = "numberOne") String numberOne,
 					  @PathVariable(value = "numberTwo") String numberTwo) throws Exception {
 		
-		if(!isNumerico(numberOne) || !isNumerico(numberTwo)) {
+		if(!isNumeric(numberOne) || !isNumeric(numberTwo)) {
 			throw new Exception();
 		}
 		
@@ -24,7 +24,7 @@ public class MathController {
 		return null;
 	}
 
-	private boolean isNumerico(String strNumber) {
+	private boolean isNumeric(String strNumber) {
 		// TODO Auto-generated method stub
 		return false;
 	}
