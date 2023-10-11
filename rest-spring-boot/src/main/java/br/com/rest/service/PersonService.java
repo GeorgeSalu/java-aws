@@ -26,19 +26,19 @@ public class PersonService {
 		return persons;
 	}
 	
-	public Person createPerson(Person person) {
+	public Person create(Person person) {
 		logger.info("creating on person");
 		
 		return person;
 	}
 	
-	public Person updatePerson(Person person) {
+	public Person update(Person person) {
 		logger.info("update on person");
 		
 		return person;
 	}
 	
-	public void deletePerson(String id) {
+	public void delete(String id) {
 		logger.info("delete on person");
 	}
 	

@@ -27,7 +27,7 @@ public class PersonController {
 	
 	@RequestMapping(value = "/{id}", method = RequestMethod.DELETE, produces = MediaType.APPLICATION_JSON_VALUE)
 	public void delete(@PathVariable(value = "id") String id) throws Exception {
-		service.deletePerson(id);
+		service.delete(id);
 	}
 	
 	@RequestMapping(method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
@@ -37,12 +37,12 @@ public class PersonController {
 	
 	@RequestMapping(method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE, consumes = MediaType.APPLICATION_JSON_VALUE)
 	public Person create(@RequestBody Person person) throws Exception {
-		return service.createPerson(person);
+		return service.create(person);
 	}
 	
 	@RequestMapping(method = RequestMethod.PUT, produces = MediaType.APPLICATION_JSON_VALUE, consumes = MediaType.APPLICATION_JSON_VALUE)
 	public Person update(@RequestBody Person person) throws Exception {
-		return service.updatePerson(person);
+		return service.update(person);
 	}
 
 }
