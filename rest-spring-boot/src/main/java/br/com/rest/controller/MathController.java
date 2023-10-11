@@ -1,8 +1,7 @@
 package br.com.rest.controller;
 
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
 import br.com.rest.converters.NumberConvert;
@@ -14,7 +13,7 @@ public class MathController {
 	
 	private SimpleMath math = new SimpleMath();
 	
-	@RequestMapping( value =  "/sum/{numberOne}/{numberTwo}", method = RequestMethod.GET)
+	@GetMapping( value =  "/sum/{numberOne}/{numberTwo}")
 	public Double sum(@PathVariable(value = "numberOne") String numberOne,
 					  @PathVariable(value = "numberTwo") String numberTwo) throws Exception {
 		
@@ -25,7 +24,7 @@ public class MathController {
 		return math.sum(NumberConvert.convertToDouble(numberOne) , NumberConvert.convertToDouble(numberTwo));
 	}
 	
-	@RequestMapping( value =  "/subtraction/{numberOne}/{numberTwo}", method = RequestMethod.GET)
+	@GetMapping( value =  "/subtraction/{numberOne}/{numberTwo}")
 	public Double subtraction(@PathVariable(value = "numberOne") String numberOne,
 					  @PathVariable(value = "numberTwo") String numberTwo) throws Exception {
 		
@@ -36,7 +35,7 @@ public class MathController {
 		return math.subtraction(NumberConvert.convertToDouble(numberOne) , NumberConvert.convertToDouble(numberTwo));
 	}
 	
-	@RequestMapping( value =  "/multiplication/{numberOne}/{numberTwo}", method = RequestMethod.GET)
+	@GetMapping( value =  "/multiplication/{numberOne}/{numberTwo}")
 	public Double multiplication(@PathVariable(value = "numberOne") String numberOne,
 					  @PathVariable(value = "numberTwo") String numberTwo) throws Exception {
 		
@@ -47,7 +46,7 @@ public class MathController {
 		return math.multiplication(NumberConvert.convertToDouble(numberOne) , NumberConvert.convertToDouble(numberTwo));
 	}
 	
-	@RequestMapping( value =  "/division/{numberOne}/{numberTwo}", method = RequestMethod.GET)
+	@GetMapping( value =  "/division/{numberOne}/{numberTwo}")
 	public Double division(@PathVariable(value = "numberOne") String numberOne,
 					  @PathVariable(value = "numberTwo") String numberTwo) throws Exception {
 		
@@ -58,7 +57,7 @@ public class MathController {
 		return math.division(NumberConvert.convertToDouble(numberOne) , NumberConvert.convertToDouble(numberTwo));
 	}
 	
-	@RequestMapping( value =  "/mean/{numberOne}/{numberTwo}", method = RequestMethod.GET)
+	@GetMapping( value =  "/mean/{numberOne}/{numberTwo}")
 	public Double mean(@PathVariable(value = "numberOne") String numberOne,
 					  @PathVariable(value = "numberTwo") String numberTwo) throws Exception {
 		
@@ -69,7 +68,7 @@ public class MathController {
 		return math.mean(NumberConvert.convertToDouble(numberOne) , NumberConvert.convertToDouble(numberTwo));
 	}
 	
-	@RequestMapping( value =  "/squareRoot/{number}", method = RequestMethod.GET)
+	@GetMapping( value =  "/squareRoot/{number}")
 	public Double squareRoot(@PathVariable(value = "number") String number) throws Exception {
 		
 		if(!NumberConvert.isNumeric(number)) {
