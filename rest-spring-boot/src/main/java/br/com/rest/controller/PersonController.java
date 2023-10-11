@@ -27,23 +27,23 @@ public class PersonController {
 	public Person findById(@PathVariable(value = "id") Long id) throws Exception {
 		return service.findById(id);
 	}
-	
+
 	@DeleteMapping(value = "/{id}")
 	public ResponseEntity<?> delete(@PathVariable(value = "id") Long id) throws Exception {
 		service.delete(id);
 		return ResponseEntity.noContent().build();
 	}
-	
+
 	@GetMapping
 	public List<Person> findAll() throws Exception {
 		return service.findAll();
 	}
-	
+
 	@PostMapping
 	public Person create(@RequestBody Person person) throws Exception {
 		return service.create(person);
 	}
-	
+
 	@PutMapping
 	public Person update(@RequestBody Person person) throws Exception {
 		return service.update(person);
