@@ -1,8 +1,6 @@
 package br.com.rest.service;
 
-import java.util.ArrayList;
 import java.util.List;
-import java.util.concurrent.atomic.AtomicLong;
 import java.util.logging.Logger;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,15 +19,17 @@ public class PersonService {
 	private PersonRepository repository;
 	
 	public List<Person> findAll() {
+		logger.info("findAll persons");
 		return repository.findAll();
 	}
 	
 	public Person create(Person person) {
+		logger.info("create person");
 		return repository.save(person);
 	}
 	
 	public Person update(Person person) {
-		
+		logger.info("update person");
 		var entity = repository.findById(person.getId())
 				.orElseThrow(() -> new ResourceNotFoundException("No records found for this id"));
 		
@@ -42,12 +42,14 @@ public class PersonService {
 	}
 	
 	public void delete(Long id) {
+		logger.info("delete person");
 		var entity = repository.findById(id)
 				.orElseThrow(() -> new ResourceNotFoundException("No records found for this id"));
 		repository.delete(entity);
 	}
 
 	public Person findById(Long id) {
+		logger.info("find person");
 		return repository.findById(id)
 				.orElseThrow(() -> new ResourceNotFoundException("No records found for this id"));
 	}
