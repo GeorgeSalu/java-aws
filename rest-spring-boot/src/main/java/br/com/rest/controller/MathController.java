@@ -1,4 +1,4 @@
-package br.com.rest;
+package br.com.rest.controller;
 
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
