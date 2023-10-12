@@ -115,4 +115,10 @@ public class Person implements Serializable {
 				&& Objects.equals(lastName, other.lastName);
 	}
 
+	@Override
+	public String toString() {
+		return "Person [id=" + id + ", firstName=" + firstName + ", lastName=" + lastName + ", address=" + address
+				+ ", gender=" + gender + ", email=" + email + "]";
+	}
+
 }
