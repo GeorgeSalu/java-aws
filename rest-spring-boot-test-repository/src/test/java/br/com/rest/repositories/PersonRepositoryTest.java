@@ -17,7 +17,7 @@ class PersonRepositoryTest {
 	
 	@DisplayName("Given Person Object When Save then Returns Saved Person")
 	@Test
-	void testGivenPErsonObject_WhenSave_thenReturnsSavedPerson() {
+	void testGivenPersonObject_WhenSave_thenReturnsSavedPerson() {
 		// Given / Arrange
 		Person person0 = new Person("Leandro",
 				"Costa", 
