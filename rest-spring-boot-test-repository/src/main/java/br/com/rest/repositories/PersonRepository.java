@@ -13,6 +13,7 @@ public interface PersonRepository extends JpaRepository<Person, Long> {
 
 	Optional<Person> findByEmail(String email);
 	
+	// define custom query using JPQL with index parameters
 	@Query("select p from Person p where p.firstName =?1 and p.lastName =?2")
 	Person findByJPQL(String firstName, String lastName);
 	
