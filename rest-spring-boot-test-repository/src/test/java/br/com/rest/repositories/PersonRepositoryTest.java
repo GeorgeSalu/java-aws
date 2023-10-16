@@ -147,5 +147,25 @@ class PersonRepositoryTest {
 		// Then / Assert
 		assertTrue(personalObject.isEmpty());
 	}
+	
+	@DisplayName("Junit test for Given FirstName And LastName When Find JPQL then Return Person Object")
+	@Test
+	void testGivenFirstNameAndLastName_WhenFindJPQL_thenReturnPersonObject() {
+		// Given / Arrange
+		Person person0 = new Person("Leandro",
+				"Costa", 
+				"Uberlandia - Minas Gerais - Brasil",
+				 "Male",
+				"leandro@gmail.com.br");
+		
+		repository.save(person0);
+
+		// When / Act
+		Person savedPerson = repository.findByJPQL("Leandro", "Costa");
+		
+		// Then / Assert
+		assertNotNull(savedPerson);
+		assertEquals(person0.getId(), savedPerson.getId());
+	}
 
 }
