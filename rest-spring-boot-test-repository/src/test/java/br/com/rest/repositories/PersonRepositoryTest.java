@@ -207,5 +207,25 @@ class PersonRepositoryTest {
 		assertNotNull(savedPerson);
 		assertEquals(person0.getId(), savedPerson.getId());
 	}
+	
+	@DisplayName("Junit test for Given FirstName And LastName When Find SQL Native With Named  Parameters then Return Person Object")
+	@Test
+	void testGivenFirstNameAndLastName_WhenFindSQLNativeWithNamedParameters_thenReturnPersonObject() {
+		// Given / Arrange
+		Person person0 = new Person("Leandro",
+				"Costa", 
+				"Uberlandia - Minas Gerais - Brasil",
+				 "Male",
+				"leandro@gmail.com.br");
+		
+		repository.save(person0);
+
+		// When / Act
+		Person savedPerson = repository.findByNativeSQLWithNamedParameters("Leandro", "Costa");
+		
+		// Then / Assert
+		assertNotNull(savedPerson);
+		assertEquals(person0.getId(), savedPerson.getId());
+	}
 
 }
