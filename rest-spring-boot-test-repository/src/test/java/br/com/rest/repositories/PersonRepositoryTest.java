@@ -3,6 +3,7 @@ package br.com.rest.repositories;
 import static org.junit.jupiter.api.Assertions.*;
 
 import java.util.List;
+import java.util.Optional;
 
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -123,6 +124,28 @@ class PersonRepositoryTest {
 		// Then / Assert
 		assertNotNull(updatedPerson);
 		assertEquals("Leonardo", savedPerson.getFirstName());
+	}
+	
+	@DisplayName("Given Person Object When Delete then Remove Person")
+	@Test
+	void testGivenPersonObject_WhenDelete_thenRemovePerson() {
+		// Given / Arrange
+		Person person0 = new Person("Leandro",
+				"Costa", 
+				"Uberlandia - Minas Gerais - Brasil",
+				 "Male",
+				"leandro@gmail.com.br");
+		
+		repository.save(person0);
+
+		// When / Act
+		repository.deleteById(person0.getId());
+		
+		Optional<Person> personalObject = repository.findById(person0.getId());
+		
+		
+		// Then / Assert
+		assertTrue(personalObject.isEmpty());
 	}
 
 }
