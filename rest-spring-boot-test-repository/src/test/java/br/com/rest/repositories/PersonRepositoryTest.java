@@ -18,7 +18,7 @@ class PersonRepositoryTest {
 	@Autowired
 	private PersonRepository repository;
 	
-	@DisplayName("Given Person Object When Save then Returns Saved Person")
+	@DisplayName("Junit test for Given Person Object When Save then Returns Saved Person")
 	@Test
 	void testGivenPersonObject_WhenSave_thenReturnsSavedPerson() {
 		// Given / Arrange
@@ -36,7 +36,7 @@ class PersonRepositoryTest {
 		assertTrue(savedPerson.getId() > 0);
 	}
 	
-	@DisplayName("Given Person List When Find All then Return Person List")
+	@DisplayName("Junit test for Given Person List When Find All then Return Person List")
 	@Test
 	void testGivenPersonList_WhenFindAll_thenReturnPersonList() {
 		// Given / Arrange
@@ -63,7 +63,7 @@ class PersonRepositoryTest {
 		assertEquals(2, personList.size());
 	}
 	
-	@DisplayName("Given Person Object When Find By ID then Return Person Object")
+	@DisplayName("Junit test for Given Person Object When Find By ID then Return Person Object")
 	@Test
 	void testGivenPersonObject_WhenFindByID_thenReturnPersonObject() {
 		// Given / Arrange
@@ -83,7 +83,7 @@ class PersonRepositoryTest {
 		assertEquals(person0.getId(), savedPerson.getId());
 	}
 	
-	@DisplayName("Given Person Object When Find By Email then Return Person Object")
+	@DisplayName("Junit test for Given Person Object When Find By Email then Return Person Object")
 	@Test
 	void testGivenPersonObject_WhenFindByEmail_thenReturnPersonObject() {
 		// Given / Arrange
@@ -102,7 +102,7 @@ class PersonRepositoryTest {
 		assertEquals(person0.getId(), savedPerson.getId());
 	}
 	
-	@DisplayName("Given Person Object When Update Person then Return Updated Person Object")
+	@DisplayName("Junit test for Given Person Object When Update Person then Return Updated Person Object")
 	@Test
 	void testGivenPersonObject_WhenUpdatePerson_thenReturnUpdatedPersonObject() {
 		// Given / Arrange
@@ -126,7 +126,7 @@ class PersonRepositoryTest {
 		assertEquals("Leonardo", savedPerson.getFirstName());
 	}
 	
-	@DisplayName("Given Person Object When Delete then Remove Person")
+	@DisplayName("Junit test for Given Person Object When Delete then Remove Person")
 	@Test
 	void testGivenPersonObject_WhenDelete_thenRemovePerson() {
 		// Given / Arrange
