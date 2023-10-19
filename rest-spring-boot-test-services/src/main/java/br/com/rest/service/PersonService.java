@@ -1,6 +1,7 @@
 package br.com.rest.service;
 
 import java.util.List;
+import java.util.Optional;
 import java.util.logging.Logger;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -25,6 +26,12 @@ public class PersonService {
 	
 	public Person create(Person person) {
 		logger.info("create person");
+		
+		Optional<Person> savedPerson = repository.findByEmail(person.getEmail());
+		if(savedPerson.isEmpty()) {
+			throw new ResourceNotFoundException("Person already exists given e-amil");
+		}
+		
 		return repository.save(person);
 	}
 	
