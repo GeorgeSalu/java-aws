@@ -28,8 +28,8 @@ public class PersonService {
 		logger.info("create person");
 		
 		Optional<Person> savedPerson = repository.findByEmail(person.getEmail());
-		if(savedPerson.isEmpty()) {
-			throw new ResourceNotFoundException("Person already exists given e-amil: "+person.getEmail());
+		if(savedPerson.isPresent()) {
+			throw new ResourceNotFoundException("Person already exist with given e-amil: "+person.getEmail());
 		}
 		
 		return repository.save(person);
