@@ -11,7 +11,7 @@
 	</parent>
 	
 	<groupId>br.com</groupId>
-	<artifactId>rest-spring-boot-test-repository</artifactId>
+	<artifactId>rest-spring-boot-test-services</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
 	<name>rest-spring-boot</name>
 	<description>Demo project for Spring Boot</description>
