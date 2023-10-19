@@ -1,5 +1,6 @@
 package br.com.rest.service;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.mockito.ArgumentMatchers.any;
@@ -8,9 +9,11 @@ import static org.mockito.BDDMockito.given;
 import static org.mockito.Mockito.never;
 import static org.mockito.Mockito.verify;
 
+import java.util.List;
 import java.util.Optional;
 
 import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
@@ -41,6 +44,7 @@ public class PersonServiceTest {
 				"leandrao@gmail.com.br");
 	}
 	
+	@DisplayName("Given Person Object When Save Person then Return Person Object")
 	@Test
 	void testGivenPersonObject_WhenSavePerson_thenReturnPersonObject() {
 		// Given / Arrange
@@ -55,6 +59,7 @@ public class PersonServiceTest {
 		assertNotNull(savedPerson);
 	}
 	
+	@DisplayName("Given Existing Email When Save Person then Throws Exception")
 	@Test
 	void testGivenExistingEmail_WhenSavePerson_thenThrowsException() {
 		// Given / Arrange
@@ -71,6 +76,28 @@ public class PersonServiceTest {
 		// Then / Assert
 		// o metodo save nunca "never()" deve ser chamado quando passarmos qualquer "any()" instancia de Person.class
 		verify(repository, never()).save(any(Person.class));
+	}
+	
+	@DisplayName("Given Persons List When Find All Persons then Return Persons List")
+	@Test
+	void testGivenPersonsList_WhenFindAllPersons_thenReturnPersonsList() {
+		// Given / Arrange
+		
+		Person person1 = new Person("Leonardo",
+				"Costa", 
+				"Uberlandia - Minas Gerais - Brasil",
+				 "Male",
+				"leandro@gmail.com.br");
+		
+		given(repository.findAll()).willReturn(List.of(person0, person1));
+		
+		
+		// When / Act
+		List<Person> personsList = services.findAll();
+		
+		// Then / Assert
+		assertNotNull(personsList);
+		assertEquals(2, personsList.size());
 	}
 
 }
