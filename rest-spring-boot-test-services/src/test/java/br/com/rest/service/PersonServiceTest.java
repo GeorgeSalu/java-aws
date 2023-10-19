@@ -1,8 +1,12 @@
 package br.com.rest.service;
 
 import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.ArgumentMatchers.anyString;
 import static org.mockito.BDDMockito.given;
+import static org.mockito.Mockito.never;
+import static org.mockito.Mockito.verify;
 
 import java.util.Optional;
 
@@ -13,6 +17,7 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 
+import br.com.rest.exceptions.ResourceNotFoundException;
 import br.com.rest.model.Person;
 import br.com.rest.repositories.PersonRepository;
 
@@ -48,6 +53,24 @@ public class PersonServiceTest {
 		
 		// Then / Assert
 		assertNotNull(savedPerson);
+	}
+	
+	@Test
+	void testGivenExistingEmail_WhenSavePerson_thenThrowsException() {
+		// Given / Arrange
+		
+		given(repository.findByEmail(anyString())).willReturn(Optional.of(person0));
+		
+		
+		// When / Act
+		assertThrows(ResourceNotFoundException.class, () -> {
+			services.create(person0);
+		});
+		
+		
+		// Then / Assert
+		// o metodo save nunca "never()" deve ser chamado quando passarmos qualquer "any()" instancia de Person.class
+		verify(repository, never()).save(any(Person.class));
 	}
 
 }
