@@ -7,7 +7,7 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.ArgumentMatchers.anyLong;
 import static org.mockito.ArgumentMatchers.anyString;
-import static org.mockito.BDDMockito.given;
+import static org.mockito.BDDMockito.*;
 import static org.mockito.Mockito.never;
 import static org.mockito.Mockito.verify;
 
@@ -152,6 +152,22 @@ public class PersonServiceTest {
 		// Then / Assert
 		assertNotNull(updatedPerson);
 		assertEquals("Leonardo", updatedPerson.getFirstName());
+	}
+	
+	@DisplayName("Given Person Object When Update Person then Return Updated Person Object")
+	@Test
+	void testGivenPersonID_WhenDeletePerson_thenDoNothing() {
+		// Given / Arrange
+		person0.setId(1l);
+		
+		given(repository.findById(anyLong())).willReturn(Optional.of(person0));
+		willDoNothing().given(repository).delete(person0);
+		
+		// When / Act
+		services.delete(person0.getId());
+		
+		// Then / Assert
+		verify(repository, times(1)).delete(person0);
 	}
 
 }
