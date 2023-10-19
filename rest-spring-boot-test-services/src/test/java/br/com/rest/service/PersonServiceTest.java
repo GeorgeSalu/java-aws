@@ -47,7 +47,7 @@ public class PersonServiceTest {
 				"leandrao@gmail.com.br");
 	}
 	
-	@DisplayName("Given Person Object When Save Person then Return Person Object")
+	@DisplayName("given person object when save person then return person object")
 	@Test
 	void testGivenPersonObject_WhenSavePerson_thenReturnPersonObject() {
 		// Given / Arrange
@@ -62,7 +62,7 @@ public class PersonServiceTest {
 		assertNotNull(savedPerson);
 	}
 	
-	@DisplayName("Given Existing Email When Save Person then Throws Exception")
+	@DisplayName("given existing email when save person then throws exception")
 	@Test
 	void testGivenExistingEmail_WhenSavePerson_thenThrowsException() {
 		// Given / Arrange
@@ -81,7 +81,7 @@ public class PersonServiceTest {
 		verify(repository, never()).save(any(Person.class));
 	}
 	
-	@DisplayName("Given Persons List When Find All Persons then Return Persons List")
+	@DisplayName("given persons list when find all persons then return persons list")
 	@Test
 	void testGivenPersonsList_WhenFindAllPersons_thenReturnPersonsList() {
 		// Given / Arrange
@@ -103,7 +103,7 @@ public class PersonServiceTest {
 		assertEquals(2, personsList.size());
 	}
 	
-	@DisplayName("Given Empty Persons List When Find All Persons then Return Persons List")
+	@DisplayName("given empty persons list when find all persons then return persons list")
 	@Test
 	void testGivenEmptyPersonsList_WhenFindAllPersons_thenReturnPersonsList() {
 		// Given / Arrange
@@ -119,7 +119,7 @@ public class PersonServiceTest {
 		assertEquals(0, personsList.size());
 	}
 	
-	@DisplayName("Given PersonId Object When Save Person then Return Person Object")
+	@DisplayName("given personid object when save person then return person object")
 	@Test
 	void testGivenPersonId_WhenSavePerson_thenReturnPersonObject() {
 		// Given / Arrange
@@ -134,7 +134,7 @@ public class PersonServiceTest {
 		assertNotNull(savedPerson);
 	}
 	
-	@DisplayName("Given Person Object When Update Person then Return Updated Person Object")
+	@DisplayName("given person object when update person then return updated person object")
 	@Test
 	void testGivenPersonObject_WhenUpdatePerson_thenReturnUpdatedPersonObject() {
 		// Given / Arrange
@@ -154,7 +154,7 @@ public class PersonServiceTest {
 		assertEquals("Leonardo", updatedPerson.getFirstName());
 	}
 	
-	@DisplayName("Given Person Object When Update Person then Return Updated Person Object")
+	@DisplayName("given person object when update person then return updated person object")
 	@Test
 	void testGivenPersonID_WhenDeletePerson_thenDoNothing() {
 		// Given / Arrange
