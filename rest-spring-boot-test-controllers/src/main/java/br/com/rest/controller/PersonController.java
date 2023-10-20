@@ -24,8 +24,12 @@ public class PersonController {
 	private PersonService service;
 
 	@GetMapping(value = "/{id}")
-	public Person findById(@PathVariable(value = "id") Long id) throws Exception {
-		return service.findById(id);
+	public ResponseEntity<Person> findById(@PathVariable(value = "id") Long id) throws Exception {
+		try {
+			return ResponseEntity.ok(service.findById(id));
+		} catch (Exception e) {
+			return ResponseEntity.notFound().build();
+		}
 	}
 
 	@DeleteMapping(value = "/{id}")
