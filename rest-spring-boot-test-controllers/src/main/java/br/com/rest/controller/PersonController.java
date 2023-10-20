@@ -49,8 +49,12 @@ public class PersonController {
 	}
 
 	@PutMapping
-	public Person update(@RequestBody Person person) throws Exception {
-		return service.update(person);
+	public ResponseEntity<Person> update(@RequestBody Person person) throws Exception {
+		try {
+			return ResponseEntity.ok(service.update(person));
+		} catch (Exception e) {
+			return ResponseEntity.notFound().build();
+		}
 	}
 
 }
