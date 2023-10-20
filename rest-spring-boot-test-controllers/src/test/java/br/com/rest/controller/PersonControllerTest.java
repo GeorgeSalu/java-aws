@@ -1,14 +1,15 @@
 package br.com.rest.controller;
 
+import static org.hamcrest.CoreMatchers.is;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.BDDMockito.given;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
-import static org.hamcrest.CoreMatchers.is;
-import static org.mockito.ArgumentMatchers.any;
+import java.util.ArrayList;
+import java.util.List;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
@@ -68,6 +69,32 @@ public class PersonControllerTest {
             .andExpect(jsonPath("$.firstName", is(person.getFirstName())))
             .andExpect(jsonPath("$.lastName", is(person.getLastName())))
             .andExpect(jsonPath("$.email", is(person.getEmail())));
+    }
+	
+	@Test
+    @DisplayName("JUnit test for Given List of Persons when findAll Persons then Return Persons List")
+    void testGivenListOfPersons_WhenFindAllPersons_thenReturnPersonsList() throws JsonProcessingException, Exception {
+        
+        // Given / Arrange
+        List<Person> persons = new ArrayList<>();
+        persons.add(person);
+        persons.add(new Person(
+                "Leonardo",
+                "Costa",
+                "leonardo@erudio.com.br",
+                "Uberlândia - Minas Gerais - Brasil",
+                "Male"));
+        
+        given(service.findAll()).willReturn(persons);
+        
+        // When / Act
+        ResultActions response = mockMvc.perform(get("/person"));
+        
+        // Then / Assert
+        response.
+            andExpect(status().isOk())
+            .andDo(print())
+            .andExpect(jsonPath("$.size()", is(persons.size())));
     }
 
 }
