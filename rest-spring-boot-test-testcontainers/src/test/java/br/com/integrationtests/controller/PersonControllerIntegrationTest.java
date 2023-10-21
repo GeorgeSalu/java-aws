@@ -132,5 +132,39 @@ public class PersonControllerIntegrationTest {
         assertEquals("Male", updatedPerson.getGender());
         assertEquals("leonardo@erudio.com.br", updatedPerson.getEmail());
     }
+    
+    @Test
+    @Order(3)
+    @DisplayName("JUnit integration given Person Object when findById should Return a Person Object")
+    void integrationTestGivenPersonObject_when_findById_ShouldReturnAPersonObject() throws JsonMappingException, JsonProcessingException {
+        
+        var content = given().spec(specification)
+                .pathParam("id", person.getId())
+            .when()
+                .get("{id}")
+            .then()
+                .statusCode(200)
+                    .extract()
+                        .body()
+                            .asString();
+        
+        Person foundPerson = objectMapper.readValue(content, Person.class);
+        
+        assertNotNull(foundPerson);
+        
+        assertNotNull(foundPerson.getId());
+        assertNotNull(foundPerson.getFirstName());
+        assertNotNull(foundPerson.getLastName());
+        assertNotNull(foundPerson.getAddress());
+        assertNotNull(foundPerson.getGender());
+        assertNotNull(foundPerson.getEmail());
+        
+        assertTrue(foundPerson.getId() > 0);
+        assertEquals("Leonardo", foundPerson.getFirstName());
+        assertEquals("Costa", foundPerson.getLastName());
+        assertEquals("Uberlândia - Minas Gerais - Brasil", foundPerson.getAddress());
+        assertEquals("Male", foundPerson.getGender());
+        assertEquals("leonardo@erudio.com.br", foundPerson.getEmail());
+    }
 	
 }
