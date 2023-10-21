@@ -1,11 +1,21 @@
 package br.com.integrationtests.controller;
 
+import static io.restassured.RestAssured.given;
+import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertTrue;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+
 import org.junit.jupiter.api.BeforeAll;
+import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.MethodOrderer.OrderAnnotation;
+import org.junit.jupiter.api.Order;
+import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.TestMethodOrder;
 import org.springframework.boot.test.context.SpringBootTest;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.DeserializationFeature;
+import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
 import br.com.config.TestConfigs;
@@ -44,6 +54,43 @@ public class PersonControllerIntegrationTest {
             "leandro@erudio.com.br",
             "Uberlândia - Minas Gerais - Brasil",
             "Male");
+    }
+    
+    @Test
+    @Order(1)
+    @DisplayName("JUnit integration given Person Object when Create one Person should Return a Person Object")
+    void integrationTestGivenPersonObject_when_CreateOnePerson_ShouldReturnAPersonObject() throws JsonMappingException, JsonProcessingException {
+        
+        var content = given().spec(specification)
+                    .contentType(TestConfigs.CONTENT_TYPE_JSON)
+                    .body(person)
+                .when()
+                    .post()
+                .then()
+                    .statusCode(200)
+                        .extract()
+                            .body()
+                                .asString();
+        
+        Person createdPerson = objectMapper.readValue(content, Person.class);
+        
+        person = createdPerson;
+        
+        assertNotNull(createdPerson);
+        
+        assertNotNull(createdPerson.getId());
+        assertNotNull(createdPerson.getFirstName());
+        assertNotNull(createdPerson.getLastName());
+        assertNotNull(createdPerson.getAddress());
+        assertNotNull(createdPerson.getGender());
+        assertNotNull(createdPerson.getEmail());
+        
+        assertTrue(createdPerson.getId() > 0);
+        assertEquals("Leandro", createdPerson.getFirstName());
+        assertEquals("Costa", createdPerson.getLastName());
+        assertEquals("Uberlândia - Minas Gerais - Brasil", createdPerson.getAddress());
+        assertEquals("Male", createdPerson.getGender());
+        assertEquals("leandro@erudio.com.br", createdPerson.getEmail());
     }
 	
 }
