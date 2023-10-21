@@ -92,5 +92,45 @@ public class PersonControllerIntegrationTest {
         assertEquals("Male", createdPerson.getGender());
         assertEquals("leandro@erudio.com.br", createdPerson.getEmail());
     }
+    
+    @Test
+    @Order(2)
+    @DisplayName("JUnit integration given Person Object when Update one Person should Return a Updated Person Object")
+    void integrationTestGivenPersonObject_when_UpdateOnePerson_ShouldReturnAUpdatedPersonObject() throws JsonMappingException, JsonProcessingException {
+        
+        person.setFirstName("Leonardo");
+        person.setEmail("leonardo@erudio.com.br");
+        
+        var content = given().spec(specification)
+                    .contentType(TestConfigs.CONTENT_TYPE_JSON)
+                    .body(person)
+                .when()
+                    .put()
+                .then()
+                    .statusCode(200)
+                        .extract()
+                            .body()
+                                .asString();
+        
+        Person updatedPerson = objectMapper.readValue(content, Person.class);
+        
+        person = updatedPerson;
+        
+        assertNotNull(updatedPerson);
+        
+        assertNotNull(updatedPerson.getId());
+        assertNotNull(updatedPerson.getFirstName());
+        assertNotNull(updatedPerson.getLastName());
+        assertNotNull(updatedPerson.getAddress());
+        assertNotNull(updatedPerson.getGender());
+        assertNotNull(updatedPerson.getEmail());
+        
+        assertTrue(updatedPerson.getId() > 0);
+        assertEquals("Leonardo", updatedPerson.getFirstName());
+        assertEquals("Costa", updatedPerson.getLastName());
+        assertEquals("Uberlândia - Minas Gerais - Brasil", updatedPerson.getAddress());
+        assertEquals("Male", updatedPerson.getGender());
+        assertEquals("leonardo@erudio.com.br", updatedPerson.getEmail());
+    }
 	
 }
