@@ -2,7 +2,7 @@ package br.com.rest.controller;
 
 import static org.hamcrest.CoreMatchers.is;
 import static org.mockito.ArgumentMatchers.any;
-import static org.mockito.BDDMockito.given;
+import static org.mockito.BDDMockito.*;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
@@ -191,6 +191,23 @@ public class PersonControllerTest {
         response.
             andExpect(status().isNotFound())
             .andDo(print());
+    }
+    
+    @Test
+    @DisplayName("JUnit test for Given personId when Delete then Return NotContent")
+    void testGivenPersonId_WhenDelete_thenReturnNotContent() throws JsonProcessingException, Exception {
+        
+        // Given / Arrange
+        long personId = 1L;
+        willDoNothing().given(service).delete(personId);
+        
+        // When / Act
+        ResultActions response = mockMvc.perform(delete("/person/{id}", personId));
+        
+        // Then / Assert
+        response.
+            andExpect(status().isNoContent())
+                .andDo(print());
     }
 
 }
